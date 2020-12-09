@@ -3,7 +3,8 @@
 
 
 class Error(Exception):
-    """IV exception"""
+
+    """IV exception."""
     pass
 
 
