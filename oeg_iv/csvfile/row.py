@@ -1,7 +1,5 @@
 # -*- coding: windows-1251 -*-
-"""
-InspectionViewer export csv file data row
-"""
+"""InspectionViewer export csv file data row"""
 from .. import (
   Error, ObjectClass, TypeMarker, TypeHorWeld, COMMON, LINEOBJ, SEAM, DEFEKTS, MARKERS, DefektSide
 )

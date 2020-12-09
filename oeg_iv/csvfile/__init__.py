@@ -1,6 +1,4 @@
-"""
-interfaces for InspectionViewer export csv file
-"""
+"""interfaces for InspectionViewer export csv file"""
 import csv
 from .. import Error
 
