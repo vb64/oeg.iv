@@ -6,9 +6,7 @@ from .. import (
 
 
 def iv_bool(val):
-    """
-    bool value for IV csv
-    """
+    """bool value for IV csv"""
     return '»—“»Õ¿' if val else 'ÀŒ∆‹'
 
 
@@ -55,6 +53,9 @@ class Row(object):  # pylint: disable=too-many-instance-attributes
     row of export csv file
     """
     def __init__(self):
+        """
+        create empty csv row object
+        """
         self.dist_od = None
         self.type_object = None
         self.object_code = 0
