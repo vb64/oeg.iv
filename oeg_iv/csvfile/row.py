@@ -6,21 +6,17 @@ from .. import (
 
 
 def iv_bool(val):
-    """bool value for IV csv"""
+    """bool value for IV csv."""
     return '»—“»Õ¿' if val else 'ÀŒ∆‹'
 
 
 def to_int(text):
-    """
-    convert text to int
-    """
+    """convert text to int."""
     return int(round(float(text.strip().replace(',', '.')), 0))
 
 
 def reverse_orient(orient_str):
-    """
-    reverse orientation of string in format "hours,minutes"
-    """
+    """reverse orientation of string in format "hours,minutes"."""
     if not orient_str:
         return orient_str
 
@@ -49,13 +45,9 @@ def reverse_orient(orient_str):
 
 
 class Row(object):  # pylint: disable=too-many-instance-attributes
-    """
-    row of export csv file
-    """
+    """row of export csv file."""
     def __init__(self):
-        """
-        create empty csv row object
-        """
+        """create empty csv row object."""
         self.dist_od = None
         self.type_object = None
         self.object_code = 0
@@ -85,9 +77,7 @@ class Row(object):  # pylint: disable=too-many-instance-attributes
         self.altitude = ''
 
     def set_geo(self, latitude, longtitude, altitude):
-        """
-        set geo coords for object
-        """
+        """set geo coords for object."""
         self.latitude = latitude
         self.longtitude = longtitude
         self.altitude = altitude
@@ -96,9 +86,7 @@ class Row(object):  # pylint: disable=too-many-instance-attributes
 
     @classmethod
     def with_dist(cls, distanse, latitude='', longtitude='', altitude=''):
-        """
-        construct row as common object with dist and geo
-        """
+        """construct row as common object with dist and geo."""
         obj = cls()
         obj.dist_od = int(distanse)
 
@@ -106,9 +94,7 @@ class Row(object):  # pylint: disable=too-many-instance-attributes
 
     @classmethod
     def as_common(cls, distanse, typ, latitude='', longtitude='', altitude=''):
-        """
-        construct row as common object
-        """
+        """construct row as common object."""
         obj = cls.with_dist(distanse, latitude, longtitude, altitude)
         obj.type_object = typ
         obj.object_code_t = COMMON[obj.type_object]
@@ -116,34 +102,26 @@ class Row(object):  # pylint: disable=too-many-instance-attributes
 
     @classmethod
     def as_weld(cls, distanse, latitude='', longtitude='', altitude=''):
-        """
-        construct row as weld object
-        """
+        """construct row as weld object."""
         return cls.as_common(distanse, ObjectClass.WELD, latitude, longtitude, altitude)
 
     @classmethod
     def as_thick(cls, distanse, thick, latitude='', longtitude='', altitude=''):
-        """
-        construct row as thickness change object
-        """
+        """construct row as thickness change object."""
         obj = cls.as_common(distanse, ObjectClass.THICK, latitude, longtitude, altitude)
         obj.depth_max = thick
         return obj
 
     @classmethod
     def as_category(cls, distanse, category, latitude='', longtitude='', altitude=''):
-        """
-        construct row as pipeline category object
-        """
+        """construct row as pipeline category object."""
         obj = cls.as_common(distanse, ObjectClass.PIPELINE_CATEGORY, latitude, longtitude, altitude)
         obj.depth_max = category
         return obj
 
     @classmethod
     def as_seam(cls, distanse, typ, orient1, orient2):
-        """
-        construct row as seam object with given typ
-        """
+        """construct row as seam object with given typ."""
         if typ not in SEAM:
             raise Error("Wrong seam type: {}".format(typ))
 
@@ -162,9 +140,7 @@ class Row(object):  # pylint: disable=too-many-instance-attributes
 
     @classmethod
     def as_lineobj(cls, distanse, typ, name, comment, latitude='', longtitude='', altitude=''):
-        """
-        construct row as line object
-        """
+        """construct row as line object."""
         obj = cls.with_dist(distanse, latitude, longtitude, altitude)
         obj.type_object = ObjectClass.MARKER
         obj.object_code = typ
@@ -180,9 +156,7 @@ class Row(object):  # pylint: disable=too-many-instance-attributes
       cls, distanse, typ, length, width, depth, orient1, orient2, comment,
       latitude='', longtitude='', altitude=''
     ):
-        """
-        construct row as defekt object
-        """
+        """construct row as defekt object."""
         if typ not in DEFEKTS:
             raise Error("Wrong defekt type: {}".format(typ))
 
@@ -207,9 +181,7 @@ class Row(object):  # pylint: disable=too-many-instance-attributes
 
     @classmethod
     def from_csv_row(cls, row):
-        """
-        construct from csv row
-        """
+        """construct from csv row."""
         obj = cls()
 
         obj.dist_od = row[0]
@@ -243,9 +215,7 @@ class Row(object):  # pylint: disable=too-many-instance-attributes
         return obj
 
     def values(self):
-        """
-        column values for row
-        """
+        """column values for row."""
         return [
           self.dist_od,
           self.type_object,
@@ -277,9 +247,7 @@ class Row(object):  # pylint: disable=too-many-instance-attributes
         ]
 
     def copy(self):
-        """
-        create copy of row
-        """
+        """create copy of row."""
         obj = Row()
 
         obj.dist_od, \
@@ -314,36 +282,26 @@ class Row(object):  # pylint: disable=too-many-instance-attributes
 
     @property
     def is_category(self):
-        """
-        row is pipeline category object
-        """
+        """row is pipeline category object."""
         return int(self.type_object) == ObjectClass.PIPELINE_CATEGORY
 
     @property
     def is_thick(self):
-        """
-        row is wall thick change object
-        """
+        """row is wall thick change object."""
         return int(self.type_object) == ObjectClass.THICK
 
     @property
     def is_weld(self):
-        """
-        row is weld object
-        """
+        """row is weld object."""
         return int(self.type_object) == ObjectClass.WELD
 
     @property
     def is_defect(self):
-        """
-        row is defect object
-        """
+        """row is defect object."""
         return int(self.type_object) == ObjectClass.DEFEKT
 
     def reverse(self, total_length):
-        """
-        reverse dist, orientation and start point if objects with length
-        """
+        """reverse dist, orientation and start point if objects with length."""
         my_length = 0
         if self.length:
             my_length = int(self.length)
