@@ -1,6 +1,4 @@
-"""
-Orientation object
-"""
+"""Orientation object."""
 import math
 
 
@@ -16,7 +14,9 @@ class Orientation(object):
     orientation units conversions
     """
     def __init__(self, hours, minutes):
-
+        """
+        construct object from integer hours and minutes
+        """
         if not(0 <= hours <= 12):
             raise Error("Wrong hours: {}. Must be 0-12".format(hours))
 
@@ -27,6 +27,9 @@ class Orientation(object):
         self.minutes = minutes
 
     def __unicode__(self):
+        """
+        return orientation string in IV csv format
+        """
         hours = self.hours
         if hours == 0:
             hours = '12'

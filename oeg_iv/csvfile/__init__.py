@@ -1,12 +1,12 @@
-"""interfaces for InspectionViewer export csv file"""
+"""Interfaces for InspectionViewer export csv file."""
 import csv
 from .. import Error
 
 
 def transform_length(dist_od, length_od, table, table_index):
     """
-    transform_length get vector (distance, length), table of dist modifications and position in this table
-    return transformed length
+    transform_length get vector (distance, length), table of dist modifications,
+    position in this table and return transformed length
     """
     try:
         length = int(length_od)
@@ -102,6 +102,9 @@ class File(object):
     ]
 
     def __init__(self):
+        """
+        create empti csv file object
+        """
         self.data = []
         self.thicks = []
         self.categories = []

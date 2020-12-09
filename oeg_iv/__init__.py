@@ -1,7 +1,5 @@
 # -*- coding: windows-1251 -*-
-"""
-interfaces for InspectionViewer stuff
-"""
+"""Interfaces for InspectionViewer stuff."""
 
 
 class Error(Exception):

@@ -1,5 +1,5 @@
 # -*- coding: windows-1251 -*-
-"""InspectionViewer export csv file data row"""
+"""InspectionViewer export csv file data row."""
 from .. import (
   Error, ObjectClass, TypeMarker, TypeHorWeld, COMMON, LINEOBJ, SEAM, DEFEKTS, MARKERS, DefektSide
 )
@@ -7,7 +7,7 @@ from .. import (
 
 def iv_bool(val):
     """
-    return bool value for iv csv
+    bool value for IV csv
     """
     return 'ИСТИНА' if val else 'ЛОЖЬ'
 
