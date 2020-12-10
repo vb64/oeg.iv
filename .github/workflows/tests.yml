@@ -23,8 +23,8 @@ jobs:
         flake8 --count --show-source --statistics --max-line-length=120 tests
     - name: pep257
       run: |
-        pep257 oeg_iv
-        pep257 tests
+        python -m pep257 ./oeg_iv
+        python -m pep257 ./tests
     - name: pylint
         python -m pylint --disable=relative-import oeg_iv
         python -m pylint --disable=relative-import tests/test
