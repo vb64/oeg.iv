@@ -90,6 +90,18 @@ assert csv_file.total_length == 14000
 ```bash
 git clone git@github.com:vb64/oeg.iv.git
 cd oeg.iv
+```
+
+With Python 2.7
+
+```bash
 make setup PYTHON_BIN=/path/to/python27/executable
 make tests
+```
+
+With Python 3.7
+
+```bash
+make setup3 PYTHON_BIN=/path/to/python37/executable
+make tests3
 ```
