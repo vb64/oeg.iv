@@ -34,7 +34,7 @@ lint:
 	$(PYTHON) -m pylint $(SOURCE)
 
 pep257:
-	$(PYTHON) -m pep257 $(TESTS)/test
+	$(PYTHON) -m pep257 $(TESTS)
 	$(PYTHON) -m pep257 $(SOURCE)
 
 dist:
