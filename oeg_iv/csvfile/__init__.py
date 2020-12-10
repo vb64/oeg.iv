@@ -133,7 +133,7 @@ class File(object):
         return int(self.data[-1].dist_od)
 
     def to_file(self, file_path):
-        """Dump data to string."""
+        """Save csv to file."""
         output = open(file_path, 'wb')
         writer = csv.writer(output, delimiter=self.DELIMETER)
 

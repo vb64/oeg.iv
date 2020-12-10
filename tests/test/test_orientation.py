@@ -1,5 +1,5 @@
 """
-make test T=test_iv/test_orientation.py
+make test T=test_orientation.py
 """
 from . import TestIV
 

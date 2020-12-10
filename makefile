@@ -33,6 +33,7 @@ lint:
 	$(PYTHON) -m pylint $(TESTS)/test
 	$(PYTHON) -m pylint $(SOURCE)
 
+# https://www.python.org/dev/peps/pep-0257/
 pep257:
 	$(PYTHON) -m pep257 $(TESTS)
 	$(PYTHON) -m pep257 $(SOURCE)
