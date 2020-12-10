@@ -1,4 +1,4 @@
-# Library for OrgEnergoGaz InspectionViewer app communication
+# Python package for communication with OrgEnergoGaz InspectionViewer app 
 [![GitHub Workflow Status](https://img.shields.io/github/workflow/status/vb64/oeg.iv/oeg.iv%20tests?label=Python%202.7%203.6%203.7%203.8&style=plastic)](https://github.com/vb64/oeg.iv/actions?query=workflow%3A%22oeg.iv+tests%22)
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/aa5f850432ca45408ab72c002f0689ea)](https://www.codacy.com/gh/vb64/oeg.iv/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=vb64/oeg.iv&amp;utm_campaign=Badge_Grade)
 [![Codacy Badge](https://app.codacy.com/project/badge/Coverage/aa5f850432ca45408ab72c002f0689ea)](https://www.codacy.com/gh/vb64/oeg.iv/dashboard?utm_source=github.com&utm_medium=referral&utm_content=vb64/oeg.iv&utm_campaign=Badge_Coverage)
@@ -81,7 +81,12 @@ assert csv_file.total_length == 28000
 assert len(csv_file.data) == 11
 
 # compress distances and length of all objects in half
-csv_file.dist_modify([[0, 0], [28000, 14000]])
+csv_file.dist_modify(
+  # table of corrections
+  # each node define as pair 'existing distance', 'new distance'
+  [[0, 0],
+  [28000, 14000],
+])
 assert csv_file.total_length == 14000
 ```
 
@@ -92,14 +97,14 @@ git clone git@github.com:vb64/oeg.iv.git
 cd oeg.iv
 ```
 
-With Python 2.7
+With Python 2
 
 ```bash
 make setup PYTHON_BIN=/path/to/python27/executable
 make tests
 ```
 
-With Python 3.7
+With Python 3
 
 ```bash
 make setup3 PYTHON_BIN=/path/to/python37/executable
