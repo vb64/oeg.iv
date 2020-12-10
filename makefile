@@ -21,7 +21,7 @@ test:
 	$(PYTEST) -s --cov-append $(TESTS)/test/$(T)
 	$(COVERAGE) html --skip-covered
 
-tests: flake8 lint
+tests: pep257 flake8 lint
 	$(PYTEST) --durations=5 $(TESTS)
 	$(COVERAGE) html --skip-covered
 
@@ -32,6 +32,10 @@ flake8:
 lint:
 	$(PYTHON) -m pylint $(TESTS)/test
 	$(PYTHON) -m pylint $(SOURCE)
+
+pep257:
+	$(PYTHON) -m pep257 $(TESTS)/test
+	$(PYTHON) -m pep257 $(SOURCE)
 
 dist:
 	$(PYTHON) setup.py sdist bdist_wheel

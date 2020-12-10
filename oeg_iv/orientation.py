@@ -3,20 +3,16 @@ import math
 
 
 class Error(Exception):
-    """
-    Orientation exception
-    """
+    """Orientation exception."""
+
     pass
 
 
 class Orientation(object):
-    """
-    orientation units conversions
-    """
+    """Orientation units conversions."""
+
     def __init__(self, hours, minutes):
-        """
-        construct object from integer hours and minutes
-        """
+        """Construct object from integer hours and minutes."""
         if not(0 <= hours <= 12):
             raise Error("Wrong hours: {}. Must be 0-12".format(hours))
 
@@ -27,9 +23,7 @@ class Orientation(object):
         self.minutes = minutes
 
     def __unicode__(self):
-        """
-        return orientation string in IV csv format
-        """
+        """Return orientation string in IV csv format."""
         hours = self.hours
         if hours == 0:
             hours = '12'
@@ -41,20 +35,17 @@ class Orientation(object):
         return "{},{}".format(hours, minutes)
 
     def __str__(self):
+        """Same as __unicode__."""
         return self.__unicode__()
 
     @classmethod
     def from_hour_float(cls, hour_float):
-        """
-        construct object from hours as float
-        """
+        """Construct object from hours as float."""
         parttial_hour, hours = math.modf(hour_float)
         minutes = parttial_hour * 60
         return cls(int(hours), int(minutes))
 
 
 def from_infotech_html(text):
-    """
-    return orientation from infotech string
-    """
+    """Return orientation from infotech string."""
     return Orientation.from_hour_float(float(text.replace(',', '.')))

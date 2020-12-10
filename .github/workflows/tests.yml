@@ -17,19 +17,18 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install -r tests/requirements.txt
-    - name: flake8 source
+    - name: flake8
       run: |
         flake8 --count --show-source --statistics --max-line-length=120 oeg_iv
-    - name: flake8 tests
-      run: |
         flake8 --count --show-source --statistics --max-line-length=120 tests
-    - name: pylint source
+    - name: pep257
       run: |
+        pep257 oeg_iv
+        pep257 tests
+    - name: pylint
         python -m pylint --disable=relative-import oeg_iv
-    - name: pylint tests
-      run: |
         python -m pylint --disable=relative-import tests/test
-    - name: Test with pytest
+    - name: pytest
       env:
         CODACY_PROJECT_TOKEN: ${{ secrets.CODACY_PROJECT_TOKEN }}
       run: |

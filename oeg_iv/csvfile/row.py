@@ -46,6 +46,7 @@ def reverse_orient(orient_str):
 
 class Row(object):  # pylint: disable=too-many-instance-attributes
     """Row of export csv file."""
+
     def __init__(self):
         """Create empty csv row object."""
         self.dist_od = None
