@@ -1,20 +1,16 @@
 # -*- coding: windows-1251 -*-
-"""
-interfaces for InspectionViewer stuff
-"""
+"""Interfaces for InspectionViewer stuff."""
 
 
 class Error(Exception):
-    """
-    IV exception
-    """
+    """IV exception."""
+
     pass
 
 
 class ObjectClass:  # pylint: disable=too-few-public-methods,no-init,old-style-class
-    """
-    classes of csv objects
-    """
+    """Classes of csv objects."""
+
     WELD = 0
     MARKER = 1
     DEFEKT = 2
@@ -24,9 +20,8 @@ class ObjectClass:  # pylint: disable=too-few-public-methods,no-init,old-style-c
 
 
 class TypeMarker:  # pylint: disable=too-few-public-methods,no-init,old-style-class
-    """
-    types of marker
-    """
+    """Types of marker."""
+
     VALVE = 0
     MARKER = 1
     MAGNET = 2
@@ -44,9 +39,8 @@ class TypeMarker:  # pylint: disable=too-few-public-methods,no-init,old-style-cl
 
 
 class TypeDefekt:  # pylint: disable=too-few-public-methods,no-init,old-style-class
-    """
-    types of defekt
-    """
+    """Types of defekt."""
+
     CORROZ = 0
     MECHANIC = 1
     DENT = 2
@@ -69,9 +63,8 @@ class TypeDefekt:  # pylint: disable=too-few-public-methods,no-init,old-style-cl
 
 
 class TypeHorWeld:  # pylint: disable=too-few-public-methods,no-init,old-style-class
-    """
-    types of horizontal weld
-    """
+    """Types of horizontal weld."""
+
     HORIZONTAL = 0
     SECOND = 1
     NO_WELD = 2
@@ -79,9 +72,8 @@ class TypeHorWeld:  # pylint: disable=too-few-public-methods,no-init,old-style-c
 
 
 class DefektSide:  # pylint: disable=too-few-public-methods,no-init,old-style-class
-    """
-    types of defekt location
-    """
+    """Types of defekt location."""
+
     UNKNOWN = 0
     OUTSIDE = 1
     INSIDE = 2

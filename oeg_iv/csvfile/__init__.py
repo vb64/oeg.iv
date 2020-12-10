@@ -1,14 +1,14 @@
-"""
-interfaces for InspectionViewer export csv file
-"""
+"""Interfaces for InspectionViewer export csv file."""
 import csv
 from .. import Error
 
 
 def transform_length(dist_od, length_od, table, table_index):
     """
-    transform_length get vector (distance, length), table of dist modifications and position in this table
-    return transformed length
+    transform_length modify length at given dist according table.
+
+    Get vector (distance, length), table of dist modifications,
+    position in this table and return transformed length.
     """
     try:
         length = int(length_od)
@@ -27,8 +27,9 @@ def transform_length(dist_od, length_od, table, table_index):
 
 def transform_dist(dist_od, table, table_index):
     """
-    transform_dist get distance, table of dist modifications and current position in this table
-    return new position in table of dist modifications and transformed distance for dist_od
+    transform_dist get distance, table of dist modifications and current position in this table.
+
+    Return new position in table of dist modifications and transformed distance for dist_od.
     """
     try:
         pos = int(dist_od)
@@ -68,9 +69,8 @@ def transform_dist(dist_od, table, table_index):
 
 
 class File(object):
-    """
-    export csv file
-    """
+    """Export/import csv file."""
+
     ENCODING = 'windows-1251'
     DELIMETER = ';'
     COLUMN_HEADS = [
@@ -104,15 +104,14 @@ class File(object):
     ]
 
     def __init__(self):
+        """Create empti csv file object."""
         self.data = []
         self.thicks = []
         self.categories = []
 
     @classmethod
     def from_file(cls, file_path):
-        """
-        construct from export csv file
-        """
+        """Construct from export csv file."""
         from .row import Row
 
         obj = cls()
@@ -130,15 +129,11 @@ class File(object):
 
     @property
     def total_length(self):
-        """
-        reckord total length
-        """
+        """Reckord total length."""
         return int(self.data[-1].dist_od)
 
     def to_file(self, file_path):
-        """
-        dump data to string
-        """
+        """Save csv to file."""
         output = open(file_path, 'wb')
         writer = csv.writer(output, delimiter=self.DELIMETER)
 
@@ -150,18 +145,14 @@ class File(object):
         output.close()
 
     def append(self, csv_file):
-        """
-        append data from csv file
-        """
+        """Append data from csv file."""
         length = self.total_length
         for item in csv_file.data:
             item.dist_od = str(int(item.dist_od) + length)
             self.data.append(item)
 
     def join(self, files):
-        """
-        join several csv files
-        """
+        """Join several csv files."""
         from .row import Row
 
         for item in files:
@@ -177,9 +168,7 @@ class File(object):
             self.data.append(point)
 
     def reverse(self):
-        """
-        reverse vector of objects
-        """
+        """Reverse vector of objects."""
         total_length = self.total_length
         for i in self.data:
             i.reverse(total_length)
@@ -224,9 +213,7 @@ class File(object):
 
     @classmethod
     def load_dist_modify(cls, file_name):
-        """
-        load_dist_modify load distance modificatons from file_name
-        """
+        """Load distance modificatons from file_name."""
         reader = csv.reader(open(file_name, 'rb'), delimiter=cls.DELIMETER)
         next(reader)  # skip column titles row
         table = []
@@ -237,9 +224,7 @@ class File(object):
         return table
 
     def dist_modify(self, table):
-        """
-        dist_modify apply distance modificatons from file_name
-        """
+        """Apply distance modificatons from file_name."""
         table_index = 0
         for row in sorted(self.data, key=lambda val: int(val.dist_od)):
 
