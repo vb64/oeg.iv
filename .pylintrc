@@ -127,7 +127,10 @@ disable=print-statement,
         dict-items-not-iterating,
         dict-keys-not-iterating,
         dict-values-not-iterating,
-        superfluous-parens
+        superfluous-parens,
+        import-outside-toplevel,
+        unnecessary-pass,
+        old-style-class
 
 # Enable the message, report, category or checker with the given id(s). You can
 # either give multiple identifier separated by comma (,) or put this option

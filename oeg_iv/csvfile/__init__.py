@@ -68,7 +68,7 @@ def transform_dist(dist_od, table, table_index):
     return table_index, pos
 
 
-class File(object):
+class File:
     """Export/import csv file."""
 
     ENCODING = 'windows-1251'
