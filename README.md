@@ -97,14 +97,14 @@ git clone git@github.com:vb64/oeg.iv.git
 cd oeg.iv
 ```
 
-With Python 2
+With Python
 
 ```bash
 make setup PYTHON_BIN=/path/to/python27/executable
 make tests
 ```
 
-With Python 3
+With Python3
 
 ```bash
 make setup3 PYTHON_BIN=/path/to/python37/executable
