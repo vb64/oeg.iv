@@ -153,7 +153,7 @@ class File:
 
         writer.writerow(self.COLUMN_HEADS)
         for row in sorted(self.data, key=lambda val: int(val.dist_od)):
-            if row.type_object >= 0:
+            if int(row.type_object) >= 0:
                 writer.writerow(row.values())
 
         output.close()
@@ -228,7 +228,7 @@ class File:
     @classmethod
     def load_dist_modify(cls, file_name):
         """Load distance modificatons from file_name."""
-        reader = csv.reader(open(file_name, 'rb'), delimiter=cls.DELIMETER)
+        reader = csv.reader(cls.open_file(file_name, 'r'), delimiter=cls.DELIMETER)
         next(reader)  # skip column titles row
         table = []
         for row in reader:
