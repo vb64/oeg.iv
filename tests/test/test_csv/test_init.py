@@ -1,5 +1,5 @@
 """
-make test T=test_iv/test_csv/test_init.py
+make test T=test_csv/test_init.py
 """
 import os
 from . import TestCsv
@@ -188,8 +188,8 @@ class TestInit(TestCsv):
         assert pos == 5
         assert new_indx == indx
 
-        new_indx, pos = transform_dist(5, table, indx)
-        assert pos == 3
+        new_indx, pos = transform_dist(4, table, indx)
+        assert pos == 2
         assert new_indx == indx
 
         new_indx, pos = transform_dist(-10, table, indx)
