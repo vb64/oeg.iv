@@ -68,7 +68,7 @@ def transform_dist(dist_od, table, table_index):
     return table_index, pos
 
 
-class File(object):
+class File:
     """Export/import csv file."""
 
     ENCODING = 'windows-1251'
@@ -110,14 +110,28 @@ class File(object):
         self.categories = []
 
     @classmethod
+    def open_file(cls, file_path, mode):
+        """Python 2/3 open file."""
+        try:  # Python 3.5+
+            fhandle = open(file_path, mode + 't', encoding=cls.ENCODING)
+        except TypeError:  # Python 2
+            fhandle = open(file_path, mode + 'b')
+
+        return fhandle
+
+    @classmethod
     def from_file(cls, file_path):
         """Construct from export csv file."""
         from .row import Row
 
         obj = cls()
-        reader = csv.reader(open(file_path, 'rb'), delimiter=cls.DELIMETER)
+        reader = csv.reader(cls.open_file(file_path, 'r'), delimiter=cls.DELIMETER)
         next(reader)  # skip column titles row
         for row in reader:
+
+            if not row:
+                continue
+
             item = Row.from_csv_row(row)
             obj.data.append(item)
             if item.is_category:
@@ -134,12 +148,12 @@ class File(object):
 
     def to_file(self, file_path):
         """Save csv to file."""
-        output = open(file_path, 'wb')
+        output = self.open_file(file_path, 'w')
         writer = csv.writer(output, delimiter=self.DELIMETER)
 
         writer.writerow(self.COLUMN_HEADS)
         for row in sorted(self.data, key=lambda val: int(val.dist_od)):
-            if row.type_object >= 0:
+            if int(row.type_object) >= 0:
                 writer.writerow(row.values())
 
         output.close()
@@ -214,7 +228,7 @@ class File(object):
     @classmethod
     def load_dist_modify(cls, file_name):
         """Load distance modificatons from file_name."""
-        reader = csv.reader(open(file_name, 'rb'), delimiter=cls.DELIMETER)
+        reader = csv.reader(cls.open_file(file_name, 'r'), delimiter=cls.DELIMETER)
         next(reader)  # skip column titles row
         table = []
         for row in reader:

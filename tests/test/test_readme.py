@@ -81,7 +81,7 @@ class TestReadme(TestIV):
         assert csv_file.total_length == 28000
         assert len(csv_file.data) == 11
 
-        # compress distances and length of all objrcts in half
+        # compress distances and length of all objects in half
         csv_file.dist_modify([[0, 0], [28000, 14000]])
         assert csv_file.total_length == 14000
 

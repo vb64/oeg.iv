@@ -8,7 +8,7 @@ class Error(Exception):
     pass
 
 
-class Orientation(object):
+class Orientation:
     """Orientation units conversions."""
 
     def __init__(self, hours, minutes):

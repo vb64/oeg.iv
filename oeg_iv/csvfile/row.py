@@ -44,7 +44,7 @@ def reverse_orient(orient_str):
     return "{},{}".format(hours, minutes)
 
 
-class Row(object):  # pylint: disable=too-many-instance-attributes
+class Row:  # pylint: disable=too-many-instance-attributes
     """Row of export csv file."""
 
     def __init__(self):
