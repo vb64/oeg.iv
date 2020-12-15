@@ -116,7 +116,7 @@ DEFEKTS = {
   TypeDefekt.DENT: "Вмятина",
   TypeDefekt.DENT_METAL_LOSS: "Вмятина с дефектами потери металла",
   TypeDefekt.GOFRA: "Гофра",
-  TypeDefekt.GWAN: "Аномалия кольцевого шва GWAN",
+  TypeDefekt.GWAN: "Аномалия кольцевого шва",
   TypeDefekt.TECHNOLOGY: "Технологический дефект",
   TypeDefekt.FACTORY: "Заводской дефект",
   TypeDefekt.ADDITIONAL_METAL: "Дополнительный металл/материал",
