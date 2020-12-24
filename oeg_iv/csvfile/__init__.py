@@ -1,15 +1,7 @@
 """Interfaces for InspectionViewer export csv file."""
 import csv
+from py23 import gen_next, open_text_file
 from .. import Error
-
-
-def gen_next(generator):
-    """Python 2/3 next method for generator."""
-    try:  # Python 2
-        return generator.next()
-    except AttributeError:  # pragma: no cover
-        # Python 3.5+
-        return generator.__next__()
 
 
 def transform_length(dist_od, length_od, table, table_index):
@@ -131,12 +123,7 @@ class File:
     @classmethod
     def open_file(cls, file_path, mode):
         """Python 2/3 open file."""
-        try:  # Python 3.5+
-            fhandle = open(file_path, mode + 't', encoding=cls.ENCODING)
-        except TypeError:  # Python 2
-            fhandle = open(file_path, mode + 'b')
-
-        return fhandle
+        return open_text_file(file_path, mode, cls.ENCODING)
 
     @classmethod
     def from_file(cls, file_path):

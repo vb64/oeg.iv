@@ -1,32 +1,6 @@
 # -*- coding: utf-8 -*-
 """Interfaces for InspectionViewer stuff."""
-
-
-def win1251(text):
-    """Convert to 1251 encoding."""
-    try:  # Python 2
-        return text.decode('utf-8').encode('windows-1251')
-    except AttributeError:  # pragma: no cover
-        # Python 3.5+
-        return text.encode('windows-1251')
-
-
-def is_contains(text_1251, utf8_string):
-    """Check text with 1251 encoding contains string with utf-8 encoding."""
-    try:  # Python 2
-        return win1251(utf8_string) in text_1251
-    except TypeError:  # pragma: no cover
-        # Python 3.5+
-        return win1251(utf8_string) in text_1251.encode('windows-1251')
-
-
-def replace1251(text_1251, utf8_source, utf8_dest):
-    """Replace utf8 source string to utf8 destination string in 1251 encoding text."""
-    try:  # Python 2
-        return text_1251.replace(win1251(utf8_source), win1251(utf8_dest))
-    except TypeError:  # pragma: no cover
-        # Python 3.5+
-        return text_1251.encode('windows-1251').replace(win1251(utf8_source), win1251(utf8_dest))
+from .py23 import win1251
 
 
 class Error(Exception):
