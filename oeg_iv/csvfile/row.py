@@ -1,7 +1,7 @@
 # -*- coding: windows-1251 -*-
 """InspectionViewer export csv file data row."""
 from .. import (
-  Error, ObjectClass, TypeMarker, TypeHorWeld, COMMON, LINEOBJ, SEAM, DEFEKTS, MARKERS, DefektSide
+  Error, ObjectClass, TypeMarker, TypeHorWeld, COMMON, LINEOBJ, SEAM, DEFEKTS, DefektSide
 )
 
 
@@ -79,9 +79,10 @@ class Row:  # pylint: disable=too-many-instance-attributes
 
     def set_geo(self, latitude, longtitude, altitude):
         """Set geo coords for object."""
-        self.latitude = latitude
-        self.longtitude = longtitude
-        self.altitude = altitude
+        if latitude and longtitude and altitude:
+            self.latitude = latitude
+            self.longtitude = longtitude
+            self.altitude = altitude
 
         return self
 
@@ -102,9 +103,13 @@ class Row:  # pylint: disable=too-many-instance-attributes
         return obj
 
     @classmethod
-    def as_weld(cls, distanse, latitude='', longtitude='', altitude=''):
+    def as_weld(cls, distanse, custom_number='', latitude='', longtitude='', altitude=''):
         """Construct row as weld object."""
-        return cls.as_common(distanse, ObjectClass.WELD, latitude, longtitude, altitude)
+        obj = cls.as_common(distanse, ObjectClass.WELD, latitude, longtitude, altitude)
+        if custom_number:
+            obj.object_name = custom_number.encode('windows-1251')
+
+        return obj
 
     @classmethod
     def as_thick(cls, distanse, thick, latitude='', longtitude='', altitude=''):
@@ -140,14 +145,14 @@ class Row:  # pylint: disable=too-many-instance-attributes
         return obj
 
     @classmethod
-    def as_lineobj(cls, distanse, typ, name, comment, latitude='', longtitude='', altitude=''):
+    def as_lineobj(cls, distanse, typ, name, is_marker, comment, latitude='', longtitude='', altitude=''):
         """Construct row as line object."""
         obj = cls.with_dist(distanse, latitude, longtitude, altitude)
         obj.type_object = ObjectClass.MARKER
         obj.object_code = typ
         obj.object_code_t = LINEOBJ[typ]
         obj.object_name = name
-        obj.marker = iv_bool(typ in MARKERS)
+        obj.marker = iv_bool(is_marker)
         obj.comments = comment
 
         return obj
@@ -167,8 +172,11 @@ class Row:  # pylint: disable=too-many-instance-attributes
         obj.type_object = ObjectClass.DEFEKT
         obj.object_code = typ
         obj.object_code_t = DEFEKTS[typ]
-        obj.orient_td = str(orient1)
-        obj.orient_bd = str(orient2)
+
+        if orient1:
+            obj.orient_td = str(orient1)
+        if orient2:
+            obj.orient_bd = str(orient2)
 
         obj.length = length
         obj.width = width
@@ -300,6 +308,16 @@ class Row:  # pylint: disable=too-many-instance-attributes
     def is_defect(self):
         """Row is defect object."""
         return int(self.type_object) == ObjectClass.DEFEKT
+
+    @property
+    def is_lineobj(self):
+        """Row is line object."""
+        return int(self.type_object) == ObjectClass.MARKER
+
+    @property
+    def is_seam(self):
+        """Row is seam object."""
+        return int(self.type_object) == ObjectClass.HOR_WELD
 
     def reverse(self, total_length):
         """Reverse dist, orientation and start point if objects with length."""

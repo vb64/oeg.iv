@@ -45,6 +45,11 @@ class Orientation:
         minutes = parttial_hour * 60
         return cls(int(hours), int(minutes))
 
+    @classmethod
+    def from_minutes(cls, minutes):
+        """Construct object from integer minutes."""
+        return cls(minutes / 60, minutes % 60)
+
 
 def from_infotech_html(text):
     """Return orientation from infotech string."""

@@ -132,7 +132,7 @@ DEFEKTS = {
   TypeDefekt.GRINDING: "Зашлифовка",
 }
 
-MARKERS = [
+DEFAULT_MARKERS = [
   TypeMarker.VALVE,
   TypeMarker.MARKER,
   TypeMarker.MAGNET,

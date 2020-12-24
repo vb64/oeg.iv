@@ -9,6 +9,37 @@ class TestInit(TestCsv):
     """
     __init__.py
     """
+    def test_get_tubes(self):
+        """
+        get_tubes
+        """
+        from oeg_iv import TypeHorWeld
+        from oeg_iv.csvfile import File, gen_next
+        from oeg_iv.csvfile.row import Row
+
+        csv_file = File.from_file(self.fixture('DefTable.csv'))
+        assert len(csv_file.data) == 178
+
+        csv_file.data.insert(0, Row.as_seam(0, TypeHorWeld.NO_WELD, '', ''))
+        assert len(csv_file.data) == 179
+
+        warns = []
+        tubes = csv_file.get_tubes(warns)
+        assert tubes
+        assert len(warns) == 1
+
+        tube = gen_next(tubes)
+        assert tube.dist == 0
+
+        tube = gen_next(tubes)
+        assert tube.dist == 6924
+
+        for tube in tubes:
+            pass
+
+        assert tube.dist == 416088
+        assert len(warns) == 1
+
     @staticmethod
     def check_objects(objects, val_list):
         """
