@@ -24,7 +24,7 @@ class Orientation:
 
     def __unicode__(self):
         """Return orientation string in IV csv format."""
-        hours = self.hours
+        hours = int(self.hours)
         if hours == 0:
             hours = '12'
 

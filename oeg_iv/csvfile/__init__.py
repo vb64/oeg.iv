@@ -5,8 +5,10 @@ from .. import Error
 
 def gen_next(generator):
     """Python 2/3 next method for generator."""
-    # generator.__next__()
-    return generator.next()
+    try:  # Python 3.5+
+        return generator.__next__()
+    except AttributeError:  # Python 2
+        return generator.next()
 
 
 def transform_length(dist_od, length_od, table, table_index):
