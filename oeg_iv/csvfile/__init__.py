@@ -5,10 +5,11 @@ from .. import Error
 
 def gen_next(generator):
     """Python 2/3 next method for generator."""
-    try:  # Python 3.5+
-        return generator.__next__()
-    except AttributeError:  # Python 2
+    try:  # Python 2
         return generator.next()
+    except AttributeError:  # pragma: no cover
+        # Python 3.5+
+        return generator.__next__()
 
 
 def transform_length(dist_od, length_od, table, table_index):

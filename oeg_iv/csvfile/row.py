@@ -1,13 +1,14 @@
-# -*- coding: windows-1251 -*-
+# -*- coding: utf-8 -*-
 """InspectionViewer export csv file data row."""
 from .. import (
-  Error, ObjectClass, TypeMarker, TypeHorWeld, COMMON, LINEOBJ, SEAM, DEFEKTS
+  Error, ObjectClass, TypeMarker, TypeHorWeld, COMMON, LINEOBJ, SEAM, DEFEKTS,
+  win1251, is_contains, replace1251,
 )
 
 
 def iv_bool(val):
     """Bool value for IV csv."""
-    return 'ИСТИНА' if val else 'ЛОЖЬ'
+    return win1251('РРЎРўРРќРђ' if val else 'Р›РћР–Р¬')
 
 
 def to_int(text):
@@ -383,11 +384,11 @@ class Row:  # pylint: disable=too-many-instance-attributes
             self.object_code = str(new_code)
 
         # comments
-        if 'лево' in self.comments:
-            self.comments = self.comments.replace('лево', 'право')
-        elif 'право' in self.comments:
-            self.comments = self.comments.replace('право', 'лево')
-        elif 'начало' in self.comments:
-            self.comments = self.comments.replace('начало', 'конец')
-        elif 'конец' in self.comments:
-            self.comments = self.comments.replace('конец', 'начало')
+        if is_contains(self.comments, 'Р»РµРІРѕ'):
+            replace1251(self.comments, 'Р»РµРІРѕ', 'РїСЂР°РІРѕ')
+        elif is_contains(self.comments, 'РїСЂР°РІРѕ'):
+            replace1251(self.comments, 'РїСЂР°РІРѕ', 'Р»РµРІРѕ')
+        elif is_contains(self.comments, 'РЅР°С‡Р°Р»Рѕ'):
+            replace1251(self.comments, 'РЅР°С‡Р°Р»Рѕ', 'РєРѕРЅРµС†')
+        elif is_contains(self.comments, 'РєРѕРЅРµС†'):
+            replace1251(self.comments, 'РєРѕРЅРµС†', 'РЅР°С‡Р°Р»Рѕ')
