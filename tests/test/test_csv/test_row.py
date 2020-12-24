@@ -99,7 +99,7 @@ class TestRow(TestCsv):
         row = Row.as_weld(10, custom_number='1xx')
         assert row.is_weld
         assert row.dist_od == 10
-        assert row.object_name == '1xx'
+        assert len(row.object_name) == 3
 
         row = Row.as_thick(10, 105)
         assert row.is_thick
