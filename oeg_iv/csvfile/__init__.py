@@ -1,6 +1,6 @@
 """Interfaces for InspectionViewer export csv file."""
 import csv
-from py23 import gen_next, open_text_file
+from ..py23 import gen_next, open_text_file
 from .. import Error
 
 
