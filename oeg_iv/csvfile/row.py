@@ -77,6 +77,10 @@ class Row:  # pylint: disable=too-many-instance-attributes
         self.longtitude = ''
         self.altitude = ''
 
+    def __str__(self):
+        """String representation for row object."""
+        return ';'.join([str(i) for i in self.values()])
+
     def set_geo(self, latitude, longtitude, altitude):
         """Set geo coords for object."""
         if latitude and longtitude and altitude:

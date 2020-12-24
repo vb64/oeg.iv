@@ -88,6 +88,22 @@ csv_file.dist_modify(
   [28000, 14000],
 ])
 assert csv_file.total_length == 14000
+
+# save file with compress distances
+csv_file.to_file('transformed.csv')
+assert os.path.getsize('transformed.csv') > 0
+
+# load new copy
+csv_trans = File.from_file('transformed.csv')
+
+# iterate by tubes
+warnings = []
+current_dist = 0
+for tube in csv_trans.get_tubes(warnings):
+    assert tube.dist >= current_dist
+    current_dist = tube.dist
+
+assert not warnings
 ```
 
 ## Development
