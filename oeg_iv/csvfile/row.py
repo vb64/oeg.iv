@@ -1,7 +1,7 @@
 # -*- coding: windows-1251 -*-
 """InspectionViewer export csv file data row."""
 from .. import (
-  Error, ObjectClass, TypeMarker, TypeHorWeld, COMMON, LINEOBJ, SEAM, DEFEKTS, DefektSide
+  Error, ObjectClass, TypeMarker, TypeHorWeld, COMMON, LINEOBJ, SEAM, DEFEKTS
 )
 
 
@@ -158,8 +158,8 @@ class Row:  # pylint: disable=too-many-instance-attributes
         return obj
 
     @classmethod
-    def as_defekt(
-      cls, distanse, typ, length, width, depth, orient1, orient2, comment,
+    def as_defekt(  # pylint: disable=too-many-locals
+      cls, distanse, typ, side, length, width, depth, orient1, orient2, mp_orient, mp_dist, comment,
       latitude='', longtitude='', altitude=''
     ):
         """Construct row as defekt object."""
@@ -182,7 +182,12 @@ class Row:  # pylint: disable=too-many-instance-attributes
         obj.width = width
         obj.depth_min = depth_int
         obj.depth_max = depth_int
-        obj.type_def = DefektSide.UNKNOWN
+        obj.type_def = side
+
+        if mp_orient:
+            obj.mpoint_orient = str(mp_orient)
+        if mp_dist:
+            obj.mpoint_dist = mp_dist
 
         obj.comments = comment
 

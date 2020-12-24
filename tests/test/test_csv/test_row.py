@@ -13,11 +13,11 @@ class TestRow(TestCsv):
         """
         set_geo
         """
-        from oeg_iv import TypeDefekt
+        from oeg_iv import TypeDefekt, DefektSide
         from oeg_iv.csvfile.row import Row
 
         row = Row.as_defekt(
-          10, TypeDefekt.CORROZ, '10', '10', '15', '', '', 'comment',
+          10, TypeDefekt.CORROZ, DefektSide.INSIDE, '10', '10', '15', '', '', '', '', 'comment',
           latitude='111', longtitude='222', altitude='333'
         )
         assert row.latitude == '111'
@@ -29,20 +29,23 @@ class TestRow(TestCsv):
         as_defekt helpers
         """
         from oeg_iv.csvfile.row import Row
-        from oeg_iv import ObjectClass, TypeDefekt, Error
+        from oeg_iv import ObjectClass, TypeDefekt, DefektSide, Error
         from oeg_iv.orientation import Orientation
 
         orient1 = Orientation(9, 15)
         orient2 = Orientation(5, 15)
+        mp_orient = Orientation(11, 0)
 
-        row = Row.as_defekt(10, TypeDefekt.CORROZ, '10', '10', '15', orient1, orient2, 'comment')
+        row = Row.as_defekt(
+          10, TypeDefekt.CORROZ, DefektSide.INSIDE, '10', '10', '15', orient1, orient2, mp_orient, 11, 'comment'
+        )
         assert row.type_object == ObjectClass.DEFEKT
         assert row.object_code == TypeDefekt.CORROZ
         assert row.orient_td == "9,15"
         assert row.orient_bd == "5,15"
 
         with self.assertRaises(Error) as context:
-            Row.as_defekt(10, 999, 10, 10, 15, orient1, orient2, 'comment')
+            Row.as_defekt(10, 999, 666, 10, 10, 15, orient1, orient2, orient1, 11, 'comment')
         assert 'Wrong defekt type: 999' in str(context.exception)
 
     def test_as_seam(self):
