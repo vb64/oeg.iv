@@ -7,10 +7,10 @@ The library provides a set of high-level operations with CSV files of the Inspec
 
 Data can be
 
-- mirrored
-- glued together from several CSV files
-- stretched/compressed along the distance according to a given set of intermediate points
-- interpreted as an iterable set of pipes
+-   mirrored
+-   glued together from several CSV files
+-   stretched/compressed along the distance according to a given set of intermediate points
+-   interpreted as an iterable set of pipes
 
 ## Install
 ```bash
