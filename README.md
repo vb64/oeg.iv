@@ -3,6 +3,15 @@
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/aa5f850432ca45408ab72c002f0689ea)](https://www.codacy.com/gh/vb64/oeg.iv/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=vb64/oeg.iv&amp;utm_campaign=Badge_Grade)
 [![Codacy Badge](https://app.codacy.com/project/badge/Coverage/aa5f850432ca45408ab72c002f0689ea)](https://www.codacy.com/gh/vb64/oeg.iv/dashboard?utm_source=github.com&utm_medium=referral&utm_content=vb64/oeg.iv&utm_campaign=Badge_Coverage)
 
+The library provides a set of high-level operations with CSV files of the InspectionViewer, the program for analyzing in-line flaw detection data.
+
+Data can be
+
+-   mirrored
+-   glued together from several CSV files
+-   stretched/compressed along the distance according to a given set of intermediate points
+-   interpreted as an iterable set of pipes
+
 ## Install
 ```bash
 pip install oeg-iv
@@ -88,6 +97,22 @@ csv_file.dist_modify(
   [28000, 14000],
 ])
 assert csv_file.total_length == 14000
+
+# save file with compress distances
+csv_file.to_file('transformed.csv')
+assert os.path.getsize('transformed.csv') > 0
+
+# load new copy
+csv_trans = File.from_file('transformed.csv')
+
+# iterate by tubes
+warnings = []
+current_dist = 0
+for tube in csv_trans.get_tubes(warnings):
+    assert tube.dist >= current_dist
+    current_dist = tube.dist
+
+assert not warnings
 ```
 
 ## Development

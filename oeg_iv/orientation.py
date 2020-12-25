@@ -24,7 +24,7 @@ class Orientation:
 
     def __unicode__(self):
         """Return orientation string in IV csv format."""
-        hours = self.hours
+        hours = int(self.hours)
         if hours == 0:
             hours = '12'
 
@@ -44,6 +44,11 @@ class Orientation:
         parttial_hour, hours = math.modf(hour_float)
         minutes = parttial_hour * 60
         return cls(int(hours), int(minutes))
+
+    @classmethod
+    def from_minutes(cls, minutes):
+        """Construct object from integer minutes."""
+        return cls(minutes / 60, minutes % 60)
 
 
 def from_infotech_html(text):

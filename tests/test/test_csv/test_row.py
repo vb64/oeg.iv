@@ -1,5 +1,5 @@
 """
-make test T=test_iv/test_csv/test_row.py
+make test T=test_csv/test_row.py
 """
 from . import TestCsv
 
@@ -8,25 +8,44 @@ class TestRow(TestCsv):
     """
     row.py
     """
+    @staticmethod
+    def test_set_geo():
+        """
+        set_geo
+        """
+        from oeg_iv import TypeDefekt, DefektSide
+        from oeg_iv.csvfile.row import Row
+
+        row = Row.as_defekt(
+          10, TypeDefekt.CORROZ, DefektSide.INSIDE, '10', '10', '15', '', '', '', '', 'comment',
+          latitude='111', longtitude='222', altitude='333'
+        )
+        assert row.latitude == '111'
+        assert row.longtitude == '222'
+        assert row.altitude == '333'
+
     def test_as_defekt(self):
         """
         as_defekt helpers
         """
         from oeg_iv.csvfile.row import Row
-        from oeg_iv import ObjectClass, TypeDefekt, Error
+        from oeg_iv import ObjectClass, TypeDefekt, DefektSide, Error
         from oeg_iv.orientation import Orientation
 
         orient1 = Orientation(9, 15)
         orient2 = Orientation(5, 15)
+        mp_orient = Orientation(11, 0)
 
-        row = Row.as_defekt(10, TypeDefekt.CORROZ, '10', '10', '15', orient1, orient2, 'comment')
+        row = Row.as_defekt(
+          10, TypeDefekt.CORROZ, DefektSide.INSIDE, '10', '10', '15', orient1, orient2, mp_orient, 11, 'comment'
+        )
         assert row.type_object == ObjectClass.DEFEKT
         assert row.object_code == TypeDefekt.CORROZ
         assert row.orient_td == "9,15"
         assert row.orient_bd == "5,15"
 
         with self.assertRaises(Error) as context:
-            Row.as_defekt(10, 999, 10, 10, 15, orient1, orient2, 'comment')
+            Row.as_defekt(10, 999, 666, 10, 10, 15, orient1, orient2, orient1, 11, 'comment')
         assert 'Wrong defekt type: 999' in str(context.exception)
 
     def test_as_seam(self):
@@ -34,32 +53,32 @@ class TestRow(TestCsv):
         as_seam helpers
         """
         from oeg_iv.csvfile.row import Row
-        from oeg_iv import ObjectClass, TypeHorWeld, Error
+        from oeg_iv import TypeHorWeld, Error
         from oeg_iv.orientation import Orientation
 
         orient1 = Orientation(10, 15)
         orient2 = Orientation(4, 15)
 
         row = Row.as_seam(10, TypeHorWeld.HORIZONTAL, orient1, orient2)
-        assert row.type_object == ObjectClass.HOR_WELD
+        assert row.is_seam
         assert row.object_code == TypeHorWeld.HORIZONTAL
         assert row.orient_td == "10,15"
         assert not row.orient_bd
 
         row = Row.as_seam(10, TypeHorWeld.SECOND, orient1, orient2)
-        assert row.type_object == ObjectClass.HOR_WELD
+        assert row.is_seam
         assert row.object_code == TypeHorWeld.SECOND
         assert row.orient_td == "10,15"
         assert row.orient_bd == "4,15"
 
         row = Row.as_seam(10, TypeHorWeld.NO_WELD, orient1, orient2)
-        assert row.type_object == ObjectClass.HOR_WELD
+        assert row.is_seam
         assert row.object_code == TypeHorWeld.NO_WELD
         assert not row.orient_td
         assert not row.orient_bd
 
         row = Row.as_seam(10, TypeHorWeld.SPIRAL, orient1, orient2)
-        assert row.type_object == ObjectClass.HOR_WELD
+        assert row.is_seam
         assert row.object_code == TypeHorWeld.SPIRAL
         assert row.orient_td == "10,15"
         assert not row.orient_bd
@@ -74,22 +93,27 @@ class TestRow(TestCsv):
         as_* helpers
         """
         from oeg_iv.csvfile.row import Row, iv_bool
-        from oeg_iv import ObjectClass, TypeMarker, LINEOBJ
+        from oeg_iv import TypeMarker, LINEOBJ
 
         row = Row.as_weld(10)
-        assert row.type_object == ObjectClass.WELD
+        assert row.is_weld
         assert row.dist_od == 10
 
+        row = Row.as_weld(10, custom_number='1xx')
+        assert row.is_weld
+        assert row.dist_od == 10
+        assert len(row.object_name) == 3
+
         row = Row.as_thick(10, 105)
-        assert row.type_object == ObjectClass.THICK
+        assert row.is_thick
         assert row.depth_max == 105
 
         row = Row.as_category(10, 1)
-        assert row.type_object == ObjectClass.PIPELINE_CATEGORY
+        assert row.is_category
         assert row.depth_max == 1
 
-        row = Row.as_lineobj(10, TypeMarker.VALVE, 'xxx', 'yyy')
-        assert row.type_object == ObjectClass.MARKER
+        row = Row.as_lineobj(10, TypeMarker.VALVE, 'xxx', True, 'yyy')
+        assert row.is_lineobj
         assert row.object_code == TypeMarker.VALVE
         assert row.object_code_t == LINEOBJ[TypeMarker.VALVE]
         assert row.object_name == 'xxx'

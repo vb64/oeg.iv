@@ -14,7 +14,7 @@ class TestReadme(TestIV):
         """
         example code
         """
-        from oeg_iv import TypeHorWeld, TypeDefekt
+        from oeg_iv import TypeHorWeld, TypeDefekt, DefektSide
         from oeg_iv.orientation import Orientation
         from oeg_iv.csvfile import File
         from oeg_iv.csvfile.row import Row
@@ -35,12 +35,15 @@ class TestReadme(TestIV):
         # add defect to tube at distance 5.0 m from left tube weld
         # length = 20 mm, width = 10 mm, depth = 30% tube wall thickness
         # orientation from 4 hours 00 minutes to 5 hours 00 minutes
+        # max depth point at 10 mm from left border of defect, orientation 4 hours 30 minutes
         # with comment 'metal loss'
         csv_file.data.append(Row.as_defekt(
           6000,
           TypeDefekt.CORROZ,
+          DefektSide.INSIDE,
           '20', '10', '30',
           Orientation(4, 0), Orientation(5, 0),
+          Orientation(4, 30), 6010,
           'metal loss'
         ))
 
@@ -60,6 +63,7 @@ class TestReadme(TestIV):
         assert defect_row.is_defect
         assert defect_row.orient_td == '4,00'
         assert defect_row.orient_bd == '5,00'
+        assert defect_row.mpoint_orient == '4,30'
 
         # reverse copy
         csv_copy.reverse()
@@ -71,6 +75,7 @@ class TestReadme(TestIV):
         # defect orientation must be mirrored
         assert defect_row.orient_td == '7,00'
         assert defect_row.orient_bd == '8,00'
+        assert defect_row.mpoint_orient == '7,30'
 
         # save reversed copy to file
         csv_file.to_file('reversed.csv')
@@ -85,5 +90,22 @@ class TestReadme(TestIV):
         csv_file.dist_modify([[0, 0], [28000, 14000]])
         assert csv_file.total_length == 14000
 
+        # save file with compress distances
+        csv_file.to_file('transformed.csv')
+        assert os.path.getsize('transformed.csv') > 0
+
+        # load new copy
+        csv_trans = File.from_file('transformed.csv')
+
+        # iterate by tubes
+        warnings = []
+        current_dist = 0
+        for tube in csv_trans.get_tubes(warnings):
+            assert tube.dist >= current_dist
+            current_dist = tube.dist
+
+        assert not warnings
+
         os. remove('example.csv')
         os. remove('reversed.csv')
+        os. remove('transformed.csv')

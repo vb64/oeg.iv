@@ -1,5 +1,6 @@
 """Interfaces for InspectionViewer export csv file."""
 import csv
+from ..py23 import gen_next, open_text_file
 from .. import Error
 
 
@@ -68,6 +69,15 @@ def transform_dist(dist_od, table, table_index):
     return table_index, pos
 
 
+class Stream:  # pylint: disable=too-few-public-methods
+    """Holds current state of data stream."""
+
+    def __init__(self):
+        """Inital data stream state."""
+        self.thick = None
+        self.category = None
+
+
 class File:
     """Export/import csv file."""
 
@@ -108,16 +118,12 @@ class File:
         self.data = []
         self.thicks = []
         self.categories = []
+        self.stream = Stream()
 
     @classmethod
     def open_file(cls, file_path, mode):
         """Python 2/3 open file."""
-        try:  # Python 3.5+
-            fhandle = open(file_path, mode + 't', encoding=cls.ENCODING)
-        except TypeError:  # Python 2
-            fhandle = open(file_path, mode + 'b')
-
-        return fhandle
+        return open_text_file(file_path, mode, cls.ENCODING)
 
     @classmethod
     def from_file(cls, file_path):
@@ -250,3 +256,26 @@ class File:
                 row.length = transform_length(row.dist_od, row.length, table, table_index)
 
             table_index, row.dist_od = transform_dist(row.dist_od, table, table_index)
+
+    def _create_tubes_iterator(self, warns):
+        """Create iterator for tubes in csv data."""
+        from .tubes import Tube
+
+        tube = None
+        for row in sorted(self.data, key=lambda val: int(val.dist_od)):
+            if row.is_weld:
+                if tube:
+                    tube.finalize(row.dist_od, warns)
+                yield tube
+                tube = Tube(row.dist_od, self.stream)
+            else:
+                if tube:
+                    tube.add_object(row)
+                else:
+                    warns.append("Object before first weld: {}".format(row))
+
+    def get_tubes(self, warns):
+        """Return ready iterator for tubes in csv data."""
+        tubes = self._create_tubes_iterator(warns)
+        gen_next(tubes)
+        return tubes

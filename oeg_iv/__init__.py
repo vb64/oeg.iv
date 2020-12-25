@@ -1,5 +1,6 @@
-# -*- coding: windows-1251 -*-
+# -*- coding: utf-8 -*-
 """Interfaces for InspectionViewer stuff."""
+from .py23 import win1251
 
 
 class Error(Exception):
@@ -81,58 +82,58 @@ class DefektSide:  # pylint: disable=too-few-public-methods,no-init
 
 
 COMMON = {
-  ObjectClass.WELD: "Шов",
-  ObjectClass.THICK: "Изменение толщины стенки трубы",
-  ObjectClass.PIPELINE_CATEGORY: "Категория трубопровода",
+  ObjectClass.WELD: win1251("РЁРѕРІ"),
+  ObjectClass.THICK: win1251("РР·РјРµРЅРµРЅРёРµ С‚РѕР»С‰РёРЅС‹ СЃС‚РµРЅРєРё С‚СЂСѓР±С‹"),
+  ObjectClass.PIPELINE_CATEGORY: win1251("РљР°С‚РµРіРѕСЂРёСЏ С‚СЂСѓР±РѕРїСЂРѕРІРѕРґР°"),
 }
 
 SEAM = {
-  TypeHorWeld.HORIZONTAL: "Продольный шов",
-  TypeHorWeld.SECOND: "Двойной прод. шов",
-  TypeHorWeld.NO_WELD: "Цельнотянутая труба",
-  TypeHorWeld.SPIRAL: "Спиральный шов",
+  TypeHorWeld.HORIZONTAL: win1251("РџСЂРѕРґРѕР»СЊРЅС‹Р№ С€РѕРІ"),
+  TypeHorWeld.SECOND: win1251("Р”РІРѕР№РЅРѕР№ РїСЂРѕРґ. С€РѕРІ"),
+  TypeHorWeld.NO_WELD: win1251("Р¦РµР»СЊРЅРѕС‚СЏРЅСѓС‚Р°СЏ С‚СЂСѓР±Р°"),
+  TypeHorWeld.SPIRAL: win1251("РЎРїРёСЂР°Р»СЊРЅС‹Р№ С€РѕРІ"),
 }
 
 LINEOBJ = {
-  TypeMarker.VALVE: "Кран",
-  TypeMarker.MARKER: "Маркер",
-  TypeMarker.MAGNET: "Маркер магнитный",
-  TypeMarker.OTVOD: "Отвод-врезка",
-  TypeMarker.TROYNIK: "Тройник",
-  TypeMarker.CASE_START: "Патрон начало",
-  TypeMarker.CASE_END: "Патрон конец",
-  TypeMarker.REPAIR: "Место ремонта",
-  TypeMarker.LOAD: "Пригруз",
-  TypeMarker.TURN_START: "Отвод (поворот) начало",
-  TypeMarker.TURN_END: "Отвод (поворот) конец",
-  TypeMarker.FEATURE: "Особенность",
-  TypeMarker.CURVE_SECTION: "Гнутая секция",
-  TypeMarker.TURN_SEGMENT: "Сегмент поворота",
+  TypeMarker.VALVE: win1251("РљСЂР°РЅ"),
+  TypeMarker.MARKER: win1251("РњР°СЂРєРµСЂ"),
+  TypeMarker.MAGNET: win1251("РњР°СЂРєРµСЂ РјР°РіРЅРёС‚РЅС‹Р№"),
+  TypeMarker.OTVOD: win1251("РћС‚РІРѕРґ-РІСЂРµР·РєР°"),
+  TypeMarker.TROYNIK: win1251("РўСЂРѕР№РЅРёРє"),
+  TypeMarker.CASE_START: win1251("РџР°С‚СЂРѕРЅ РЅР°С‡Р°Р»Рѕ"),
+  TypeMarker.CASE_END: win1251("РџР°С‚СЂРѕРЅ РєРѕРЅРµС†"),
+  TypeMarker.REPAIR: win1251("РњРµСЃС‚Рѕ СЂРµРјРѕРЅС‚Р°"),
+  TypeMarker.LOAD: win1251("РџСЂРёРіСЂСѓР·"),
+  TypeMarker.TURN_START: win1251("РћС‚РІРѕРґ (РїРѕРІРѕСЂРѕС‚) РЅР°С‡Р°Р»Рѕ"),
+  TypeMarker.TURN_END: win1251("РћС‚РІРѕРґ (РїРѕРІРѕСЂРѕС‚) РєРѕРЅРµС†"),
+  TypeMarker.FEATURE: win1251("РћСЃРѕР±РµРЅРЅРѕСЃС‚СЊ"),
+  TypeMarker.CURVE_SECTION: win1251("Р“РЅСѓС‚Р°СЏ СЃРµРєС†РёСЏ"),
+  TypeMarker.TURN_SEGMENT: win1251("РЎРµРіРјРµРЅС‚ РїРѕРІРѕСЂРѕС‚Р°"),
 }
 
 DEFEKTS = {
-  TypeDefekt.CORROZ: "Коррозия ",
-  TypeDefekt.MECHANIC: "Механическое повреждение",
-  TypeDefekt.DENT: "Вмятина",
-  TypeDefekt.DENT_METAL_LOSS: "Вмятина с дефектами потери металла",
-  TypeDefekt.GOFRA: "Гофра",
-  TypeDefekt.GWAN: "Аномалия кольцевого шва",
-  TypeDefekt.TECHNOLOGY: "Технологический дефект",
-  TypeDefekt.FACTORY: "Заводской дефект",
-  TypeDefekt.ADDITIONAL_METAL: "Дополнительный металл/материал",
-  TypeDefekt.OTHER: "Другое",
-  TypeDefekt.CRACKS_HOR: "Зона продольных трещин",
-  TypeDefekt.CRACK_LIKE: "Трещиноподобный дефект",
-  TypeDefekt.CRACK_WELD: "Трещина на кольцевом шве",
-  TypeDefekt.LAMINATION: "Расслоение",
-  TypeDefekt.ANOMALY_HOR_WELD: "Аномалия продольного шва",
-  TypeDefekt.ANOMALY_SPIRAL_WELD: "Аномалия спирального шва",
-  TypeDefekt.ELLIPSE: "Эллипсность",
-  TypeDefekt.PODZHIG: "Поджиг",
-  TypeDefekt.GRINDING: "Зашлифовка",
+  TypeDefekt.CORROZ: win1251("РљРѕСЂСЂРѕР·РёСЏ"),
+  TypeDefekt.MECHANIC: win1251("РњРµС…Р°РЅРёС‡РµСЃРєРѕРµ РїРѕРІСЂРµР¶РґРµРЅРёРµ"),
+  TypeDefekt.DENT: win1251("Р’РјСЏС‚РёРЅР°"),
+  TypeDefekt.DENT_METAL_LOSS: win1251("Р’РјСЏС‚РёРЅР° СЃ РґРµС„РµРєС‚Р°РјРё РїРѕС‚РµСЂРё РјРµС‚Р°Р»Р»Р°"),
+  TypeDefekt.GOFRA: win1251("Р“РѕС„СЂР°"),
+  TypeDefekt.GWAN: win1251("РђРЅРѕРјР°Р»РёСЏ РєРѕР»СЊС†РµРІРѕРіРѕ С€РІР°"),
+  TypeDefekt.TECHNOLOGY: win1251("РўРµС…РЅРѕР»РѕРіРёС‡РµСЃРєРёР№ РґРµС„РµРєС‚"),
+  TypeDefekt.FACTORY: win1251("Р—Р°РІРѕРґСЃРєРѕР№ РґРµС„РµРєС‚"),
+  TypeDefekt.ADDITIONAL_METAL: win1251("Р”РѕРїРѕР»РЅРёС‚РµР»СЊРЅС‹Р№ РјРµС‚Р°Р»Р»/РјР°С‚РµСЂРёР°Р»"),
+  TypeDefekt.OTHER: win1251("Р”СЂСѓРіРѕРµ"),
+  TypeDefekt.CRACKS_HOR: win1251("Р—РѕРЅР° РїСЂРѕРґРѕР»СЊРЅС‹С… С‚СЂРµС‰РёРЅ"),
+  TypeDefekt.CRACK_LIKE: win1251("РўСЂРµС‰РёРЅРѕРїРѕРґРѕР±РЅС‹Р№ РґРµС„РµРєС‚"),
+  TypeDefekt.CRACK_WELD: win1251("РўСЂРµС‰РёРЅР° РЅР° РєРѕР»СЊС†РµРІРѕРј С€РІРµ"),
+  TypeDefekt.LAMINATION: win1251("Р Р°СЃСЃР»РѕРµРЅРёРµ"),
+  TypeDefekt.ANOMALY_HOR_WELD: win1251("РђРЅРѕРјР°Р»РёСЏ РїСЂРѕРґРѕР»СЊРЅРѕРіРѕ С€РІР°"),
+  TypeDefekt.ANOMALY_SPIRAL_WELD: win1251("РђРЅРѕРјР°Р»РёСЏ СЃРїРёСЂР°Р»СЊРЅРѕРіРѕ С€РІР°"),
+  TypeDefekt.ELLIPSE: win1251("Р­Р»Р»РёРїСЃРЅРѕСЃС‚СЊ"),
+  TypeDefekt.PODZHIG: win1251("РџРѕРґР¶РёРі"),
+  TypeDefekt.GRINDING: win1251("Р—Р°С€Р»РёС„РѕРІРєР°"),
 }
 
-MARKERS = [
+DEFAULT_MARKERS = [
   TypeMarker.VALVE,
   TypeMarker.MARKER,
   TypeMarker.MAGNET,
