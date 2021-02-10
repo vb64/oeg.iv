@@ -1,8 +1,5 @@
-"""
-For pypi.org upload
-"""
+"""For pypi.org upload."""
 import setuptools
-
 
 LONG = """
 # oeg.iv
@@ -12,7 +9,7 @@ Python package for communication with OrgEnergoGaz InspectionViewer app
 
 setuptools.setup(
   name='oeg_iv',
-  version='1.2',
+  version='1.3',
   author='Vitaly Bogomolov',
   author_email='mail@vitaly-bogomolov.ru',
   description='Python package for communication with OrgEnergoGaz InspectionViewer app',
@@ -20,7 +17,7 @@ setuptools.setup(
   long_description_content_type="text/markdown",
   url='https://github.com/vb64/oeg.iv',
   packages=['oeg_iv', 'oeg_iv.csvfile'],
-  download_url='https://github.com/vb64/oeg.iv/archive/v1.2.tar.gz',
+  download_url='https://github.com/vb64/oeg.iv/archive/v1.3.tar.gz',
   keywords=['python', 'OrgEnergoGaz', 'InspectionViewer', 'csv'],
   classifiers=[
     "Programming Language :: Python",

@@ -113,7 +113,7 @@ LINEOBJ = {
 
 DEFEKTS = {
   TypeDefekt.CORROZ: win1251("Коррозия"),
-  TypeDefekt.MECHANIC: win1251("Механическое повреждение"),
+  TypeDefekt.MECHANIC: win1251("Мех. повреждение"),
   TypeDefekt.DENT: win1251("Вмятина"),
   TypeDefekt.DENT_METAL_LOSS: win1251("Вмятина с дефектами потери металла"),
   TypeDefekt.GOFRA: win1251("Гофра"),
