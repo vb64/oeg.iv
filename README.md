@@ -113,6 +113,28 @@ for tube in csv_trans.get_tubes(warnings):
     current_dist = tube.dist
 
 assert not warnings
+
+# set geodata for tube
+assert tube.latitude == ''
+assert tube.longtitude == ''
+assert tube.altitude == ''
+
+tube.set_geo(10, 11, 12)
+
+assert tube.latitude == 10
+assert tube.longtitude == 11
+assert tube.altitude == 12
+
+csv_trans.to_file('geo.csv')
+assert os.path.getsize('geo.csv') > 0
+
+# load from saved file and check geodata from last pipe
+csv_geo = File.from_file('geo.csv')
+last_tube = list(csv_geo.get_tubes(warnings))[-1]
+
+assert last_tube.latitude == '10'
+assert last_tube.longtitude == '11'
+assert last_tube.altitude == '12'
 ```
 
 ## Development
