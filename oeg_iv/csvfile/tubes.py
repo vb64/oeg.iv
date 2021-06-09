@@ -5,9 +5,10 @@ from .. import Error
 class Tube:
     """Represent one pipe."""
 
-    def __init__(self, dist, stream):
-        """Construct new tube object at dist with given data stream state."""
-        self.dist = int(dist)
+    def __init__(self, row, stream):
+        """Construct new tube object from IV csv row with given data stream state."""
+        self.row = row
+        self.dist = int(row.dist_od)
         self.stream = stream
 
         self.typ = None
@@ -43,3 +44,31 @@ class Tube:
 
         else:
             raise Error("Tube at dist {} has wrong row: {}".format(self.dist, str(row)))
+
+    def set_geo(self, latitude, longtitude, altitude):
+        """Set geo coords for tube."""
+        self.row.set_geo(latitude, longtitude, altitude)
+
+    @property
+    def latitude(self):
+        """Tube start latitude."""
+        return self.row.latitude
+
+    @property
+    def longtitude(self):
+        """Tube start longtitude."""
+        return self.row.longtitude
+
+    @property
+    def altitude(self):
+        """Tube start altitude."""
+        return self.row.altitude
+
+    @property
+    def radius(self):
+        """Return tube curve radius."""
+        return self.row.depth_min
+
+    def set_radius(self, val):
+        """Set tube curve radius."""
+        self.row.depth_min = val
