@@ -1,4 +1,5 @@
-"""
+"""Test for README.md examples.
+
 make test T=test_readme.py
 """
 import os
@@ -6,14 +7,11 @@ from . import TestIV
 
 
 class TestReadme(TestIV):
-    """
-    example code for readme.md
-    """
+    """Example code for readme.md file."""
+
     @staticmethod
-    def test_readme():
-        """
-        example code
-        """
+    def test_readme():  # pylint: disable=too-many-locals,too-many-statements
+        """Example code."""
         from oeg_iv import TypeHorWeld, TypeDefekt, DefektSide
         from oeg_iv.orientation import Orientation
         from oeg_iv.csvfile import File
@@ -100,12 +98,39 @@ class TestReadme(TestIV):
         # iterate by tubes
         warnings = []
         current_dist = 0
-        for tube in csv_trans.get_tubes(warnings):
-            assert tube.dist >= current_dist
-            current_dist = tube.dist
+        for i in csv_trans.get_tubes(warnings):
+            assert i.dist >= current_dist
+            current_dist = i.dist
+            tube = i
 
         assert not warnings
 
-        os. remove('example.csv')
-        os. remove('reversed.csv')
-        os. remove('transformed.csv')
+        # set geodata for tube
+        assert tube.latitude == ''
+        assert tube.longtitude == ''
+        assert tube.altitude == ''
+
+        tube.set_geo(10, 11, 12)
+
+        assert tube.latitude == 10
+        assert tube.longtitude == 11
+        assert tube.altitude == 12
+
+        csv_trans.to_file('geo.csv')
+        assert os.path.getsize('geo.csv') > 0
+
+        # load from saved file and check geodata from last pipe
+        csv_geo = File.from_file('geo.csv')
+        last_tube = list(csv_geo.get_tubes(warnings))[-1]
+
+        assert last_tube.latitude == '10'
+        assert last_tube.longtitude == '11'
+        assert last_tube.altitude == '12'
+
+        for name in [
+          'example.csv',
+          'reversed.csv',
+          'transformed.csv',
+          'geo.csv',
+        ]:
+            os. remove(name)

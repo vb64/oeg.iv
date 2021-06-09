@@ -267,7 +267,7 @@ class File:
                 if tube:
                     tube.finalize(row.dist_od, warns)
                 yield tube
-                tube = Tube(row.dist_od, self.stream)
+                tube = Tube(row, self.stream)
             else:
                 if tube:
                     tube.add_object(row)

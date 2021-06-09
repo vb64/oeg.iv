@@ -130,7 +130,8 @@ disable=print-statement,
         superfluous-parens,
         import-outside-toplevel,
         unnecessary-pass,
-        old-style-class
+        old-style-class,
+        consider-using-with
 
 # Enable the message, report, category or checker with the given id(s). You can
 # either give multiple identifier separated by comma (,) or put this option
