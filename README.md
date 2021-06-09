@@ -10,7 +10,7 @@ Data can be
 -   mirrored
 -   glued together from several CSV files
 -   stretched/compressed along the distance according to a given set of intermediate points
--   interpreted as an iterable set of pipes
+-   interpreted as an iterable sequence of pipes with geodata
 
 ## Install
 ```bash
@@ -108,9 +108,10 @@ csv_trans = File.from_file('transformed.csv')
 # iterate by tubes
 warnings = []
 current_dist = 0
-for tube in csv_trans.get_tubes(warnings):
-    assert tube.dist >= current_dist
-    current_dist = tube.dist
+for i in csv_trans.get_tubes(warnings):
+    assert i.dist >= current_dist
+    current_dist = i.dist
+    tube = i
 
 assert not warnings
 
