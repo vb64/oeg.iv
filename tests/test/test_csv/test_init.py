@@ -1,4 +1,5 @@
-"""
+"""Tests __init__.py file.
+
 make test T=test_csv/test_init.py
 """
 import os
@@ -6,9 +7,7 @@ from . import TestCsv
 
 
 class TestInit(TestCsv):
-    """
-    __init__.py
-    """
+    """File __init__.py."""
 
     @staticmethod
     def test_format_floats():
@@ -20,9 +19,7 @@ class TestInit(TestCsv):
         assert format_floats(data, FloatDelimiter.Comma) == [1, '2', '3,0']
 
     def test_get_tubes(self):
-        """
-        get_tubes
-        """
+        """Check get_tubes."""
         from oeg_iv import TypeHorWeld
         from oeg_iv.csvfile import File, gen_next
         from oeg_iv.csvfile.row import Row
@@ -52,18 +49,14 @@ class TestInit(TestCsv):
 
     @staticmethod
     def check_objects(objects, val_list):
-        """
-        compare objrcts list with expected values
-        """
+        """Check compare objrcts list with expected values."""
         assert len(objects) == len(val_list)
         for item, vals in zip(objects, val_list):
             assert item.dist_od == vals[0]
             assert item.depth_max == vals[1]
 
     def test_no_thick_category(self):
-        """
-        reverse data file without thick and category objects
-        """
+        """Check reverse data file without thick and category objects."""
         from oeg_iv.csvfile import File
 
         csv_file = File.from_file(self.fixture('no_thicks.csv'))
@@ -73,9 +66,7 @@ class TestInit(TestCsv):
         assert len(csv_file.data) == 8
 
     def test_no_welds(self):
-        """
-        reverse data file without welds
-        """
+        """Check reverse data file without welds."""
         from oeg_iv.csvfile import File
 
         csv_file = File.from_file(self.fixture('no_welds.csv'))
@@ -85,9 +76,7 @@ class TestInit(TestCsv):
         assert len(csv_file.data) == 1
 
     def test_reverse(self):
-        """
-        reverse
-        """
+        """Check reverse."""
         from oeg_iv.csvfile import File
 
         csv_file = File.from_file(self.fixture('DefTable.csv'))
@@ -151,9 +140,7 @@ class TestInit(TestCsv):
         os.remove(fname)
 
     def test_join(self):
-        """
-        join
-        """
+        """Check join."""
         from oeg_iv.csvfile import File
 
         fname = self.fixture('DefTable.csv')
@@ -168,9 +155,7 @@ class TestInit(TestCsv):
         assert csv_file.total_length == (426625 * 2 + 11000)
 
     def test_join_short(self):
-        """
-        join short file
-        """
+        """Check join short file."""
         from oeg_iv.csvfile import File
 
         fname = self.fixture('1.csv')
@@ -193,9 +178,7 @@ class TestInit(TestCsv):
 
     @staticmethod
     def test_transform_length_wrong():
-        """
-        transform_length with wrong data
-        """
+        """Check transform_length with wrong data."""
         from oeg_iv.csvfile import transform_length
 
         table = [[0, 0], [10, 5]]
@@ -203,9 +186,7 @@ class TestInit(TestCsv):
 
     @staticmethod
     def test_transform_length():
-        """
-        transform_length
-        """
+        """Check transform_length."""
         from oeg_iv.csvfile import transform_length
 
         table = [[0, 0], [100, 50]]
@@ -213,9 +194,7 @@ class TestInit(TestCsv):
 
     @staticmethod
     def test_transform_dist():
-        """
-        transform_dist
-        """
+        """Check transform_dist."""
         from oeg_iv.csvfile import transform_dist
 
         table = [[0, 0], [10, 5]]
@@ -249,9 +228,7 @@ class TestInit(TestCsv):
         assert new_indx == indx
 
     def test_load_dist_modify(self):
-        """
-        load_dist_modify
-        """
+        """Check load_dist_modify."""
         from oeg_iv.csvfile import File
 
         table = File.load_dist_modify(self.fixture('unsorted_modifi.csv'))
@@ -259,9 +236,7 @@ class TestInit(TestCsv):
         assert table[-1] == [4656750, 4665340]
 
     def test_dist_modify(self):
-        """
-        dist_modify
-        """
+        """Check dist_modify."""
         from oeg_iv.csvfile import File
         from oeg_iv import Error
 

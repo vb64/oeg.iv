@@ -1,17 +1,15 @@
-"""
+"""Module orientation.py.
+
 make test T=test_orientation.py
 """
 from . import TestIV
 
 
 class TestOrientation(TestIV):
-    """
-    orientation.py
-    """
+    """Check orientation.py file."""
+
     def test_init(self):
-        """
-        init and errors
-        """
+        """Check init and errors."""
         from oeg_iv.orientation import Orientation, Error
 
         with self.assertRaises(Error) as context:
@@ -31,9 +29,7 @@ class TestOrientation(TestIV):
 
     @staticmethod
     def test_from_infotech_html():
-        """
-        from_infotech_html
-        """
+        """Check from_infotech_html."""
         from oeg_iv.orientation import from_infotech_html
 
         orient = from_infotech_html("5,5")
