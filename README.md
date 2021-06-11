@@ -4,7 +4,7 @@
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/aa5f850432ca45408ab72c002f0689ea)](https://www.codacy.com/gh/vb64/oeg.iv/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=vb64/oeg.iv&amp;utm_campaign=Badge_Grade)
 [![Codacy Badge](https://app.codacy.com/project/badge/Coverage/aa5f850432ca45408ab72c002f0689ea)](https://www.codacy.com/gh/vb64/oeg.iv/dashboard?utm_source=github.com&utm_medium=referral&utm_content=vb64/oeg.iv&utm_campaign=Badge_Coverage)
 
-The library provides a set of high-level operations with export/import CSV file of the InspectionViewer, the app for analyzing in-line flaw detection data.
+The library provides a set of high-level operations with export/import CSV file of the InspectionViewer, the Win32 app for analyzing in-line flaw detection data.
 
 Data can be
 
