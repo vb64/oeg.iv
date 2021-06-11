@@ -4,7 +4,7 @@
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/aa5f850432ca45408ab72c002f0689ea)](https://www.codacy.com/gh/vb64/oeg.iv/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=vb64/oeg.iv&amp;utm_campaign=Badge_Grade)
 [![Codacy Badge](https://app.codacy.com/project/badge/Coverage/aa5f850432ca45408ab72c002f0689ea)](https://www.codacy.com/gh/vb64/oeg.iv/dashboard?utm_source=github.com&utm_medium=referral&utm_content=vb64/oeg.iv&utm_campaign=Badge_Coverage)
 
-The library provides a set of high-level operations with CSV files of the InspectionViewer, the program for analyzing in-line flaw detection data.
+The library provides a set of high-level operations with export/import CSV file of the InspectionViewer, the app for analyzing in-line flaw detection data.
 
 Data can be
 
@@ -19,6 +19,8 @@ pip install oeg-iv
 ```
 
 ## Usage
+
+Construct new csv file from scratch.
 
 ```python
 import os
@@ -56,7 +58,11 @@ csv_file.data.append(Row.as_defekt(
 # save csv to file
 csv_file.to_file('example.csv')
 assert os.path.getsize('example.csv') > 0
+```
 
+Reversing the data.
+
+```python
 # create copy from saved file
 csv_copy = File.from_file('example.csv')
 
@@ -84,13 +90,19 @@ assert defect_row.orient_bd == '8,00'
 # save reversed copy to file
 csv_file.to_file('reversed.csv')
 assert os.path.getsize('reversed.csv') > 0
+```
 
-# append to initial csv empty tube with length = 10.0 m and reversed copy from file
+Append to initial CSV empty pipe with length = 10.0 m and reversed copy from the file.
+
+```python
 csv_file.join([10000, 'reversed.csv'])
 assert csv_file.total_length == 28000
 assert len(csv_file.data) == 11
+```
 
-# compress distances and length of all objects in half
+Compress distances and length of all objects in half.
+
+```python
 csv_file.dist_modify(
   # table of corrections
   # each node define as pair 'existing distance', 'new distance'
@@ -102,11 +114,12 @@ assert csv_file.total_length == 14000
 # save file with compress distances
 csv_file.to_file('transformed.csv')
 assert os.path.getsize('transformed.csv') > 0
+```
 
-# load new copy
+Iterate by pipes and modify data.
+
+```python
 csv_trans = File.from_file('transformed.csv')
-
-# iterate by tubes
 warnings = []
 current_dist = 0
 for i in csv_trans.get_tubes(warnings):
