@@ -23,11 +23,11 @@ test:
 	$(PYTEST) -s --cov-append $(TESTS)/test/$(T)
 	$(COVERAGE) html --skip-covered
 
-tests: pep257 flake8 lint
+tests: flake8 pep257 lint
 	$(PYTEST) --durations=5 $(TESTS)
 	$(COVERAGE) html --skip-covered
 
-tests3: pep257 flake8 lint3
+tests3: flake8 pep257 lint3
 	$(PYTEST) --durations=5 $(TESTS)
 	$(COVERAGE) html --skip-covered
 
@@ -43,10 +43,9 @@ lint3:
 	$(LINT3) $(TESTS)/test
 	$(LINT3) $(SOURCE)
 
-# https://www.python.org/dev/peps/pep-0257/
 pep257:
-	$(PYTHON) -m pep257 $(TESTS)
 	$(PYTHON) -m pep257 $(SOURCE)
+	$(PYTHON) -m pep257 --match='.*\.py' $(TESTS)/test
 
 dist:
 	$(PYTHON) setup.py sdist bdist_wheel
@@ -63,7 +62,7 @@ setup3: setup_python3 setup_pip
 
 setup_pip:
 	$(PYTHON) -m pip install --upgrade pip
-	$(PYTHON) -m pip install -r tests/requirements.txt
+	$(PYTHON) -m pip install --upgrade --force-reinstall -r tests/requirements.txt
 	$(PYTHON) -m pip install -r deploy.txt
 
 setup_python:

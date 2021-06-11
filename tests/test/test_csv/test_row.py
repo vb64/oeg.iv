@@ -1,18 +1,16 @@
-"""
+"""Tests row.py file.
+
 make test T=test_csv/test_row.py
 """
 from . import TestCsv
 
 
 class TestRow(TestCsv):
-    """
-    row.py
-    """
+    """Check row.py file."""
+
     @staticmethod
     def test_set_geo():
-        """
-        set_geo
-        """
+        """Check set_geo."""
         from oeg_iv import TypeDefekt, DefektSide
         from oeg_iv.csvfile.row import Row
 
@@ -25,9 +23,7 @@ class TestRow(TestCsv):
         assert row.altitude == '333'
 
     def test_as_defekt(self):
-        """
-        as_defekt helpers
-        """
+        """Check as_defekt helpers."""
         from oeg_iv.csvfile.row import Row
         from oeg_iv import ObjectClass, TypeDefekt, DefektSide, Error
         from oeg_iv.orientation import Orientation
@@ -49,9 +45,7 @@ class TestRow(TestCsv):
         assert 'Wrong defekt type: 999' in str(context.exception)
 
     def test_as_seam(self):
-        """
-        as_seam helpers
-        """
+        """Check as_seam helpers."""
         from oeg_iv.csvfile.row import Row
         from oeg_iv import TypeHorWeld, Error
         from oeg_iv.orientation import Orientation
@@ -89,9 +83,7 @@ class TestRow(TestCsv):
 
     @staticmethod
     def test_as():
-        """
-        as_* helpers
-        """
+        """Check  as_* helpers."""
         from oeg_iv.csvfile.row import Row, iv_bool
         from oeg_iv import TypeMarker, LINEOBJ
 
@@ -122,9 +114,7 @@ class TestRow(TestCsv):
 
     @staticmethod
     def test_reverse_orient():
-        """
-        reverse_orient
-        """
+        """Check reverse_orient."""
         from oeg_iv.csvfile.row import reverse_orient
 
         assert reverse_orient("0") == '12,00'
@@ -139,9 +129,7 @@ class TestRow(TestCsv):
 
     @staticmethod
     def test_reverse():
-        """
-        row.reverse
-        """
+        """Check row.reverse."""
         from oeg_iv.csvfile.row import Row
         from oeg_iv import ObjectClass, TypeMarker
 
