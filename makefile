@@ -14,7 +14,7 @@ endif
 SOURCE = oeg_iv
 TESTS = tests
 PYTEST = $(PTEST) --cov=$(SOURCE) --cov-report term:skip-covered
-LINT = $(PYTHON) -m pylint
+LINT = $(PYTHON) -m pylint --load-plugins=pylint.extensions.mccabe --max-complexity=10
 LINT3 = $(LINT) --init-hook="sys.path.insert(0, './')"
 
 all: tests
