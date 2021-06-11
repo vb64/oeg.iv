@@ -69,13 +69,31 @@ def transform_dist(dist_od, table, table_index):
     return table_index, pos
 
 
-class Stream:  # pylint: disable=too-few-public-methods
+class Stream:
     """Holds current state of data stream."""
 
     def __init__(self):
         """Inital data stream state."""
         self.thick = None
         self.category = None
+
+
+class FloatDelimiter:
+    """Possible float delimiter for output csv."""
+
+    Point = '.'
+    Comma = ','
+
+
+def format_floats(val_list, float_delimiter):
+    """Convert floats from val_list to string with given float delimiter."""
+    if float_delimiter == FloatDelimiter.Point:
+        return val_list
+
+    return [
+      str(i).replace('.', float_delimiter) if isinstance(i, float) else i
+      for i in val_list
+    ]
 
 
 class File:
@@ -113,11 +131,12 @@ class File:
       'Altitude',
     ]
 
-    def __init__(self):
+    def __init__(self, float_delimiter=FloatDelimiter.Point):
         """Create empti csv file object."""
         self.data = []
         self.thicks = []
         self.categories = []
+        self.float_delimiter = float_delimiter
         self.stream = Stream()
 
     @classmethod
@@ -160,7 +179,7 @@ class File:
         writer.writerow(self.COLUMN_HEADS)
         for row in sorted(self.data, key=lambda val: int(val.dist_od)):
             if int(row.type_object) >= 0:
-                writer.writerow(row.values())
+                writer.writerow(format_floats(row.values(), self.float_delimiter))
 
         output.close()
 

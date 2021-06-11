@@ -131,6 +131,8 @@ disable=print-statement,
         import-outside-toplevel,
         unnecessary-pass,
         old-style-class,
+        too-few-public-methods,
+        no-init,
         consider-using-with
 
 # Enable the message, report, category or checker with the given id(s). You can

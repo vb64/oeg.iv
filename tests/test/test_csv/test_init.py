@@ -9,6 +9,16 @@ class TestInit(TestCsv):
     """
     __init__.py
     """
+
+    @staticmethod
+    def test_format_floats():
+        """Check format_floats function."""
+        from oeg_iv.csvfile import format_floats, FloatDelimiter
+
+        data = [1, '2', 3.0]
+        assert format_floats(data, FloatDelimiter.Point) == data
+        assert format_floats(data, FloatDelimiter.Comma) == [1, '2', '3,0']
+
     def test_get_tubes(self):
         """
         get_tubes

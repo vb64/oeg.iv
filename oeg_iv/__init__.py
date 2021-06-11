@@ -9,7 +9,7 @@ class Error(Exception):
     pass
 
 
-class ObjectClass:  # pylint: disable=too-few-public-methods,no-init
+class ObjectClass:
     """Classes of csv objects."""
 
     WELD = 0
@@ -20,7 +20,7 @@ class ObjectClass:  # pylint: disable=too-few-public-methods,no-init
     PIPELINE_CATEGORY = 5
 
 
-class TypeMarker:  # pylint: disable=too-few-public-methods,no-init
+class TypeMarker:
     """Types of marker."""
 
     VALVE = 0
@@ -39,7 +39,7 @@ class TypeMarker:  # pylint: disable=too-few-public-methods,no-init
     TURN_SEGMENT = 13
 
 
-class TypeDefekt:  # pylint: disable=too-few-public-methods,no-init
+class TypeDefekt:
     """Types of defekt."""
 
     CORROZ = 0
@@ -63,7 +63,7 @@ class TypeDefekt:  # pylint: disable=too-few-public-methods,no-init
     GRINDING = 18
 
 
-class TypeHorWeld:  # pylint: disable=too-few-public-methods,no-init
+class TypeHorWeld:
     """Types of horizontal weld."""
 
     HORIZONTAL = 0
@@ -72,7 +72,7 @@ class TypeHorWeld:  # pylint: disable=too-few-public-methods,no-init
     SPIRAL = 3
 
 
-class DefektSide:  # pylint: disable=too-few-public-methods,no-init
+class DefektSide:
     """Types of defekt location."""
 
     UNKNOWN = 0
