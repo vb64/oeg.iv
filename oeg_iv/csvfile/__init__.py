@@ -145,11 +145,11 @@ class File:
         return open_text_file(file_path, mode, cls.ENCODING)
 
     @classmethod
-    def from_file(cls, file_path):
+    def from_file(cls, file_path, float_delimiter=FloatDelimiter.Point):
         """Construct from export csv file."""
         from .row import Row
 
-        obj = cls()
+        obj = cls(float_delimiter=float_delimiter)
         reader = csv.reader(cls.open_file(file_path, 'r'), delimiter=cls.DELIMETER)
         next(reader)  # skip column titles row
         for row in reader:
