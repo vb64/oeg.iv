@@ -31,6 +31,11 @@ tests3: flake8 pep257 lint3
 	$(PYTEST) --durations=5 $(TESTS)
 	$(COVERAGE) html --skip-covered
 
+# https://pypi.org/project/radon/
+radon:
+	$(PYTHON) -m radon cc $(TESTS)/test -s -a -nc
+	$(PYTHON) -m radon cc $(SOURCE) -s -a -nc
+
 flake8:
 	$(PYTHON) -m flake8 --max-line-length=120 $(TESTS)
 	$(PYTHON) -m flake8 --max-line-length=120 $(SOURCE)
