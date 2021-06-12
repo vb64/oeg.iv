@@ -14,7 +14,7 @@ endif
 SOURCE = oeg_iv
 TESTS = tests
 PYTEST = $(PTEST) --cov=$(SOURCE) --cov-report term:skip-covered
-LINT = $(PYTHON) -m pylint
+LINT = $(PYTHON) -m pylint --load-plugins=pylint.extensions.mccabe --max-complexity=10
 LINT3 = $(LINT) --init-hook="sys.path.insert(0, './')"
 
 all: tests
@@ -30,6 +30,17 @@ tests: flake8 pep257 lint
 tests3: flake8 pep257 lint3
 	$(PYTEST) --durations=5 $(TESTS)
 	$(COVERAGE) html --skip-covered
+
+# https://pypi.org/project/radon/
+radon3:
+	$(PYTHON) -m radon cc $(TESTS)/test -s -a -nc
+	$(PYTHON) -m radon cc $(SOURCE) -s -a -nc
+
+radon:
+	mv radon.cfg _radon.cfg
+	$(PYTHON) -m radon cc $(TESTS)/test -s -a -nc --no-assert
+	$(PYTHON) -m radon cc $(SOURCE) -s -a -nc
+	mv _radon.cfg radon.cfg
 
 flake8:
 	$(PYTHON) -m flake8 --max-line-length=120 $(TESTS)

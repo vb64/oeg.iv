@@ -31,8 +31,8 @@ jobs:
 
     - name: pylint
       run: |
-        python -m pylint --disable=relative-import oeg_iv
-        python -m pylint --disable=relative-import tests/test
+        python -m pylint --load-plugins=pylint.extensions.mccabe --max-complexity=10 --disable=relative-import oeg_iv
+        python -m pylint --load-plugins=pylint.extensions.mccabe --max-complexity=10 --disable=relative-import tests/test
 
     - name: pytest
       env:
@@ -67,8 +67,8 @@ jobs:
 
     - name: pylint
       run: |
-        python -m pylint --init-hook="sys.path.insert(0, './')" --disable=relative-import oeg_iv
-        python -m pylint --init-hook="sys.path.insert(0, './')" --disable=relative-import tests/test
+        python -m pylint --load-plugins=pylint.extensions.mccabe --max-complexity=10 --init-hook="sys.path.insert(0, './')" --disable=relative-import oeg_iv
+        python -m pylint --load-plugins=pylint.extensions.mccabe --max-complexity=10 --init-hook="sys.path.insert(0, './')" --disable=relative-import tests/test
 
     - name: pytest
       run: |

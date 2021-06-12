@@ -5,6 +5,19 @@ from .. import (
   Error, ObjectClass, TypeMarker, TypeHorWeld, COMMON, LINEOBJ, SEAM, DEFEKTS,
 )
 
+REVERSE_MARKER = {
+  TypeMarker.CASE_START: TypeMarker.CASE_END,
+  TypeMarker.CASE_END: TypeMarker.CASE_START,
+  TypeMarker.TURN_START: TypeMarker.TURN_END,
+  TypeMarker.TURN_END: TypeMarker.TURN_START,
+}
+REVERSE_COMMENTS = {
+  'лево': 'право',
+  'право': 'лево',
+  'начало': 'конец',
+  'конец': 'начало',
+}
+
 
 def iv_bool(val):
     """Bool value for IV csv."""
@@ -370,25 +383,10 @@ class Row:  # pylint: disable=too-many-instance-attributes
         # object type
         if int(self.type_object) == ObjectClass.MARKER:
             object_code = int(self.object_code)
-            new_code = object_code
-
-            if object_code == TypeMarker.CASE_START:
-                new_code = TypeMarker.CASE_END
-            elif object_code == TypeMarker.CASE_END:
-                new_code = TypeMarker.CASE_START
-            elif object_code == TypeMarker.TURN_START:
-                new_code = TypeMarker.TURN_END
-            elif object_code == TypeMarker.TURN_END:
-                new_code = TypeMarker.TURN_START
-
-            self.object_code = str(new_code)
+            self.object_code = str(REVERSE_MARKER.get(object_code, object_code))
 
         # comments
-        if is_contains(self.comments, 'лево'):
-            replace1251(self.comments, 'лево', 'право')
-        elif is_contains(self.comments, 'право'):
-            replace1251(self.comments, 'право', 'лево')
-        elif is_contains(self.comments, 'начало'):
-            replace1251(self.comments, 'начало', 'конец')
-        elif is_contains(self.comments, 'конец'):
-            replace1251(self.comments, 'конец', 'начало')
+        for key, val in REVERSE_COMMENTS.items():
+            if is_contains(self.comments, key):
+                replace1251(self.comments, key, val)
+                break
