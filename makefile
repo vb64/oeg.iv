@@ -32,15 +32,9 @@ tests3: flake8 pep257 lint3
 	$(COVERAGE) html --skip-covered
 
 # https://pypi.org/project/radon/
-radon3:
-	$(PYTHON) -m radon cc $(TESTS)/test -s -a -nc
-	$(PYTHON) -m radon cc $(SOURCE) -s -a -nc
-
 radon:
-	mv radon.cfg _radon.cfg
 	$(PYTHON) -m radon cc $(TESTS)/test -s -a -nc --no-assert
 	$(PYTHON) -m radon cc $(SOURCE) -s -a -nc
-	mv _radon.cfg radon.cfg
 
 flake8:
 	$(PYTHON) -m flake8 --max-line-length=120 $(TESTS)
