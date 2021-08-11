@@ -15,6 +15,14 @@ def count_items(items):
     return result
 
 
+def summary_text(objects, names, result):
+    """Add summary text for given items to result list."""
+    items = count_items(objects)
+    line = ', '.join(["{}: {}".format(names[key], items[key]) for key in sorted(items.keys())])
+    if line:
+        result.append(line)
+
+
 class Tube:
     """Represent one pipe."""
 
@@ -95,15 +103,7 @@ class Tube:
     def summary(self):
         """Return string with summary for given tube."""
         result = []
-
-        items = count_items(self.defects)
-        line = ', '.join(["{}: {}".format(DEFEKTS[key], items[key]) for key in sorted(items.keys())])
-        if line:
-            result.append(line)
-
-        items = count_items(self.lineobjects)
-        line = ', '.join(["{}: {}".format(LINEOBJ[key], items[key]) for key in sorted(items.keys())])
-        if line:
-            result.append(line)
+        summary_text(self.defects, DEFEKTS, result)
+        summary_text(self.lineobjects, LINEOBJ, result)
 
         return ', '.join(result)
