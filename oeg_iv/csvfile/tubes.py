@@ -15,18 +15,6 @@ def count_items(items):
     return result
 
 
-def defects_summary(defects):
-    """Return string with given defects summary by types."""
-    result = count_items(defects)
-    return ', '.join(["{}: {}".format(DEFEKTS[key], result[key]) for key in sorted(result.keys())])
-
-
-def lineobj_summary(lineobjects):
-    """Return string with given lineobjects summary."""
-    result = count_items(lineobjects)
-    return ', '.join(["{}: {}".format(LINEOBJ[key], result[key]) for key in sorted(result.keys())])
-
-
 class Tube:
     """Represent one pipe."""
 
@@ -108,11 +96,13 @@ class Tube:
         """Return string with summary for given tube."""
         result = []
 
-        line = defects_summary(self.defects)
+        items = count_items(self.defects)
+        line = ', '.join(["{}: {}".format(DEFEKTS[key], items[key]) for key in sorted(items.keys())])
         if line:
             result.append(line)
 
-        line = lineobj_summary(self.lineobjects)
+        items = count_items(self.lineobjects)
+        line = ', '.join(["{}: {}".format(LINEOBJ[key], items[key]) for key in sorted(items.keys())])
         if line:
             result.append(line)
 
