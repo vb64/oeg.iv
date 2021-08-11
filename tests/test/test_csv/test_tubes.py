@@ -39,3 +39,42 @@ class TestTubes(TestCsv):
         assert self.tube.radius == ''
         self.tube.set_radius('100')
         assert self.tube.radius == '100'
+
+    def test_number(self):
+        """Tube number."""
+        assert self.tube.number == ''
+        self.tube.row.object_name = ' 123 '
+        assert self.tube.number == '123'
+
+    def test_summary(self):
+        """Tube summary."""
+        from oeg_iv import TypeMarker, TypeDefekt, DefektSide
+        from oeg_iv.csvfile.row import Row
+
+        assert self.tube.summary == ''
+
+        self.tube.add_object(Row.as_lineobj(
+          self.tube.dist + 10,
+          TypeMarker.VALVE,
+          'V1',
+          True,
+          'Valve comment'
+        ))
+
+        self.tube.add_object(Row.as_defekt(
+          str(self.tube.dist + 20),
+          TypeDefekt.CORROZ, DefektSide.OUTSIDE,
+          '10', '10', '10',
+          '100', '200', '150', str(self.tube.dist + 25),
+          'Coroz1 comment'
+        ))
+        self.tube.add_object(Row.as_defekt(
+          str(self.tube.dist + 30),
+          TypeDefekt.CORROZ, DefektSide.OUTSIDE,
+          '8', '8', '8',
+          '100', '200', '150', str(self.tube.dist + 35),
+          'Coroz2 comment'
+        ))
+
+        assert ': 1' in self.tube.summary
+        assert ': 2' in self.tube.summary

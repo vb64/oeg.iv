@@ -1,5 +1,30 @@
 """Tubes iterator interface for InspectionViewer export csv file."""
-from .. import Error
+from .. import Error, LINEOBJ, DEFEKTS
+
+
+def count_items(items):
+    """Return dict with counted item codes."""
+    result = {}
+    for item in items:
+        code = int(item.object_code)
+        if code in result:
+            result[code] += 1
+        else:
+            result[code] = 1
+
+    return result
+
+
+def defects_summary(defects):
+    """Return string with given defects summary by types."""
+    result = count_items(defects)
+    return ', '.join(["{}: {}".format(DEFEKTS[key], result[key]) for key in sorted(result.keys())])
+
+
+def lineobj_summary(lineobjects):
+    """Return string with given lineobjects summary."""
+    result = count_items(lineobjects)
+    return ', '.join(["{}: {}".format(LINEOBJ[key], result[key]) for key in sorted(result.keys())])
 
 
 class Tube:
@@ -72,3 +97,23 @@ class Tube:
     def set_radius(self, val):
         """Set tube curve radius."""
         self.row.depth_min = val
+
+    @property
+    def number(self):
+        """Tube custom number."""
+        return self.row.object_name.strip()
+
+    @property
+    def summary(self):
+        """Return string with summary for given tube."""
+        result = []
+
+        line = defects_summary(self.defects)
+        if line:
+            result.append(line)
+
+        line = lineobj_summary(self.lineobjects)
+        if line:
+            result.append(line)
+
+        return ', '.join(result)
