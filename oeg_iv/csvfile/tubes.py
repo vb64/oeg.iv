@@ -2,29 +2,17 @@
 from .. import Error, LINEOBJ, DEFEKTS
 
 
-def count_items(items):
-    """Return dict with counted item codes."""
-    result = {}
-    for item in items:
+def summary_text(objects, names):
+    """Return summary text for given items."""
+    items = {}
+    for item in objects:
         code = int(item.object_code)
-        if code in result:
-            result[code] += 1
+        if code in items:
+            items[code] += 1
         else:
-            result[code] = 1
+            items[code] = 1
 
-    return result
-
-
-def defects_summary(defects):
-    """Return string with given defects summary by types."""
-    result = count_items(defects)
-    return ', '.join(["{}: {}".format(DEFEKTS[key], result[key]) for key in sorted(result.keys())])
-
-
-def lineobj_summary(lineobjects):
-    """Return string with given lineobjects summary."""
-    result = count_items(lineobjects)
-    return ', '.join(["{}: {}".format(LINEOBJ[key], result[key]) for key in sorted(result.keys())])
+    return ', '.join(["{}: {}".format(names[key], items[key]) for key in sorted(items.keys())])
 
 
 class Tube:
@@ -106,14 +94,7 @@ class Tube:
     @property
     def summary(self):
         """Return string with summary for given tube."""
-        result = []
-
-        line = defects_summary(self.defects)
-        if line:
-            result.append(line)
-
-        line = lineobj_summary(self.lineobjects)
-        if line:
-            result.append(line)
-
-        return ', '.join(result)
+        return ', '.join([i for i in [
+          summary_text(self.defects, DEFEKTS),
+          summary_text(self.lineobjects, LINEOBJ)
+        ] if i])
