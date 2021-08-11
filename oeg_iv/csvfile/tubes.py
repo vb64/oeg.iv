@@ -2,8 +2,8 @@
 from .. import Error, LINEOBJ, DEFEKTS
 
 
-def summary_text(objects, names, result):
-    """Add summary text for given items to result list."""
+def summary_text(objects, names):
+    """Return summary text for given items."""
     items = {}
     for item in objects:
         code = int(item.object_code)
@@ -12,9 +12,7 @@ def summary_text(objects, names, result):
         else:
             items[code] = 1
 
-    line = ', '.join(["{}: {}".format(names[key], items[key]) for key in sorted(items.keys())])
-    if line:
-        result.append(line)
+    return ', '.join(["{}: {}".format(names[key], items[key]) for key in sorted(items.keys())])
 
 
 class Tube:
@@ -96,8 +94,7 @@ class Tube:
     @property
     def summary(self):
         """Return string with summary for given tube."""
-        result = []
-        summary_text(self.defects, DEFEKTS, result)
-        summary_text(self.lineobjects, LINEOBJ, result)
-
-        return ', '.join(result)
+        return ', '.join([i for i in [
+          summary_text(self.defects, DEFEKTS),
+          summary_text(self.lineobjects, LINEOBJ)
+        ] if i])
