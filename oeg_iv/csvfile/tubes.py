@@ -2,22 +2,16 @@
 from .. import Error, LINEOBJ, DEFEKTS
 
 
-def count_items(items):
-    """Return dict with counted item codes."""
-    result = {}
-    for item in items:
-        code = int(item.object_code)
-        if code in result:
-            result[code] += 1
-        else:
-            result[code] = 1
-
-    return result
-
-
 def summary_text(objects, names, result):
     """Add summary text for given items to result list."""
-    items = count_items(objects)
+    items = {}
+    for item in objects:
+        code = int(item.object_code)
+        if code in items:
+            items[code] += 1
+        else:
+            items[code] = 1
+
     line = ', '.join(["{}: {}".format(names[key], items[key]) for key in sorted(items.keys())])
     if line:
         result.append(line)
