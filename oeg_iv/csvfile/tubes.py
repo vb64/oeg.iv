@@ -40,18 +40,32 @@ class Tube:
     def finalize(self, dist, _warns):
         """Finalize tube data at given dist."""
         self.length = int(dist) - self.dist
+        self.thick = self.stream.thick
+        self.category = self.stream.category
 
     def add_object(self, row):
         """Add data to tube from IV csv row."""
         if row.is_defect:
             self.defects.append(row)
+
         elif row.is_lineobj:
             self.lineobjects.append(row)
+
         elif row.is_seam:
             self.seams.append(row)
+
         elif row.is_category:
+            category = row.depth_max
+            if self.stream.category != category:
+                self.stream.category = category
+                self.is_category_change = True
             self.categories.append(row)
+
         elif row.is_thick:
+            thick = int(row.depth_max)
+            if self.stream.thick != thick:
+                self.stream.thick = thick
+                self.is_thick_change = True
             self.thicks.append(row)
 
         else:
@@ -104,7 +118,7 @@ class Tube:
         if not self.seams:
             return TypeHorWeld.UNKNOWN
 
-        return self.seams[0].object_code
+        return int(self.seams[0].object_code)
 
     @property
     def seam_info(self):
