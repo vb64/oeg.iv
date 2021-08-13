@@ -1,5 +1,5 @@
 """Tubes iterator interface for InspectionViewer export csv file."""
-from .. import Error, LINEOBJ, DEFEKTS
+from .. import Error, TypeHorWeld, LINEOBJ, DEFEKTS
 
 
 def summary_text(objects, names):
@@ -24,7 +24,6 @@ class Tube:
         self.dist = int(row.dist_od)
         self.stream = stream
 
-        self.typ = None
         self.length = None
         self.thick = None
         self.category = None
@@ -98,3 +97,24 @@ class Tube:
           summary_text(self.defects, DEFEKTS),
           summary_text(self.lineobjects, LINEOBJ)
         ] if i])
+
+    @property
+    def typ(self):
+        """Pipe type according pipe seams data."""
+        if not self.seams:
+            return TypeHorWeld.UNKNOWN
+
+        return self.seams[0].object_code
+
+    @property
+    def seam_info(self):
+        """Return text string with seams orientation."""
+        text = ''
+        if self.typ == TypeHorWeld.HORIZONTAL:
+            text = self.seams[0].orient_td
+        elif self.typ == TypeHorWeld.SECOND:
+            text = self.seams[0].orient_td + ' / ' + self.seams[0].orient_bd
+        elif self.typ == TypeHorWeld.SPIRAL:
+            text = ' / '.join([i.orient_td for i in self.seams])
+
+        return text

@@ -78,3 +78,50 @@ class TestTubes(TestCsv):
 
         assert ': 1' in self.tube.summary
         assert ': 2' in self.tube.summary
+
+    def test_typ(self):
+        """Pipe type."""
+        from oeg_iv import TypeHorWeld
+        from oeg_iv.csvfile.row import Row
+
+        assert self.tube.typ == TypeHorWeld.UNKNOWN
+
+        self.tube.add_object(Row.as_seam(
+          self.tube.dist + 10,
+          TypeHorWeld.HORIZONTAL,
+          '1,10', ''
+        ))
+        assert self.tube.typ == TypeHorWeld.HORIZONTAL
+        assert self.tube.seam_info == '1,10'
+
+        self.tube.seams = []
+        self.tube.add_object(Row.as_seam(
+          self.tube.dist + 10,
+          TypeHorWeld.SECOND,
+          '1,10', '7,10'
+        ))
+        assert self.tube.typ == TypeHorWeld.SECOND
+        assert self.tube.seam_info == '1,10 / 7,10'
+
+        self.tube.seams = []
+        self.tube.add_object(Row.as_seam(
+          self.tube.dist + 10,
+          TypeHorWeld.NO_WELD,
+          '1,10', '7,10'
+        ))
+        assert self.tube.typ == TypeHorWeld.NO_WELD
+        assert self.tube.seam_info == ''
+
+        self.tube.seams = []
+        self.tube.add_object(Row.as_seam(
+          self.tube.dist + 10,
+          TypeHorWeld.SPIRAL,
+          '1,10', ''
+        ))
+        self.tube.add_object(Row.as_seam(
+          self.tube.dist + 20,
+          TypeHorWeld.SPIRAL,
+          '6,10', ''
+        ))
+        assert self.tube.typ == TypeHorWeld.SPIRAL
+        assert self.tube.seam_info == '1,10 / 6,10'

@@ -70,6 +70,7 @@ class TypeHorWeld:
     SECOND = 1
     NO_WELD = 2
     SPIRAL = 3
+    UNKNOWN = 4
 
 
 class DefektSide:
@@ -92,6 +93,7 @@ SEAM = {
   TypeHorWeld.SECOND: win1251("Двойной прод. шов"),
   TypeHorWeld.NO_WELD: win1251("Цельнотянутая труба"),
   TypeHorWeld.SPIRAL: win1251("Спиральный шов"),
+  TypeHorWeld.UNKNOWN: win1251("Не определено"),
 }
 
 LINEOBJ = {
