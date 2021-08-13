@@ -125,3 +125,29 @@ class TestTubes(TestCsv):
         ))
         assert self.tube.typ == TypeHorWeld.SPIRAL
         assert self.tube.seam_info == '1,10 / 6,10'
+
+    def test_category(self):
+        """Pipe category."""
+        from oeg_iv.csvfile.row import Row
+
+        assert self.tube.category is None
+        assert self.tube.stream.category is None
+        assert not self.tube.is_category_change
+
+        self.tube.add_object(Row.as_category(
+          self.tube.dist + 10,
+          '1',
+        ))
+
+        assert self.tube.is_category_change
+        assert self.tube.stream.category == '1'
+
+        self.tube.add_object(Row.as_category(
+          self.tube.dist + 20,
+          '1',
+        ))
+
+        assert self.tube.stream.category == '1'
+
+        self.tube.finalize(self.tube.dist + 100, [])
+        assert self.tube.category == '1'
