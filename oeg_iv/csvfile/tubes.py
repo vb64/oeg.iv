@@ -118,7 +118,7 @@ class Tube:
         if not self.seams:
             return TypeHorWeld.UNKNOWN
 
-        return self.seams[0].object_code
+        return int(self.seams[0].object_code)
 
     @property
     def seam_info(self):
