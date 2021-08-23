@@ -16,7 +16,7 @@ class TestTubes(TestCsv):
         from oeg_iv.csvfile.tubes import Tube
         from oeg_iv.csvfile.row import Row
 
-        self.tube = Tube(Row.as_weld(10), Stream())
+        self.tube = Tube(Row.as_weld(10), Stream(), '1')
 
     def test_add_object(self):
         """Add object."""
@@ -42,7 +42,7 @@ class TestTubes(TestCsv):
 
     def test_number(self):
         """Tube number."""
-        assert self.tube.number == ''
+        assert self.tube.number == '1'
         self.tube.row.object_name = ' 123 '
         assert self.tube.number == '123'
 

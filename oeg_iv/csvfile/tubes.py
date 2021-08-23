@@ -18,10 +18,11 @@ def summary_text(objects, names):
 class Tube:
     """Represent one pipe."""
 
-    def __init__(self, row, stream):
+    def __init__(self, row, stream, auto_number):
         """Construct new tube object from IV csv row with given data stream state."""
         self.row = row
         self.dist = int(row.dist_od)
+        self.auto_number = auto_number
         self.stream = stream
 
         self.length = None
@@ -101,8 +102,11 @@ class Tube:
 
     @property
     def number(self):
-        """Tube custom number."""
-        return self.row.object_name.strip()
+        """Tube custom or auto number."""
+        num = self.row.object_name.strip()
+        if not num:
+            num = self.auto_number
+        return num
 
     @property
     def summary(self):
