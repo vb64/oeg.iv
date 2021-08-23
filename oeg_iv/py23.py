@@ -43,6 +43,6 @@ def open_text_file(file_path, mode, encoding):
         fhandle = open(file_path, mode + 't', encoding=encoding)
     except TypeError:  # pragma: no cover
         # Python 2
-        fhandle = open(file_path, mode + 'b')
+        fhandle = open(file_path, mode + 'b')  # pylint: disable=unspecified-encoding
 
     return fhandle
