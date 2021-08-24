@@ -281,12 +281,14 @@ class File:
         from .tubes import Tube
 
         tube = None
+        auto_num = 1
         for row in sorted(self.data, key=lambda val: int(val.dist_od)):
             if row.is_weld:
                 if tube:
                     tube.finalize(row.dist_od, warns)
+                    auto_num += 1
                 yield tube
-                tube = Tube(row, self.stream)
+                tube = Tube(row, self.stream, str(auto_num))
             else:
                 if tube:
                     tube.add_object(row)
