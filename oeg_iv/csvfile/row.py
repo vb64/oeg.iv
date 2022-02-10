@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """InspectionViewer export csv file data row."""
-from ..py23 import win1251, is_contains, replace1251
+from py23 import win1251, is_contains, replace1251
 from .. import (
   Error, ObjectClass, TypeMarker, TypeHorWeld, COMMON, LINEOBJ, SEAM, DEFEKTS,
 )

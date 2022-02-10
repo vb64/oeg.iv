@@ -67,6 +67,7 @@ setup3: setup_python3 setup_pip
 
 setup_pip:
 	$(PYTHON) -m pip install --upgrade pip
+	$(PYTHON) -m pip install -r requirements.txt
 	$(PYTHON) -m pip install --upgrade --force-reinstall -r tests/requirements.txt
 	$(PYTHON) -m pip install -r deploy.txt
 

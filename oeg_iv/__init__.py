@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """Interfaces for InspectionViewer stuff."""
-from .py23 import win1251
+from py23 import win1251
 
 
 class Error(Exception):
