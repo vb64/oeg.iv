@@ -134,6 +134,7 @@ disable=print-statement,
         too-few-public-methods,
         no-init,
         bad-option-value,
+        consider-using-f-string,
         consider-using-with
 
 # Enable the message, report, category or checker with the given id(s). You can
