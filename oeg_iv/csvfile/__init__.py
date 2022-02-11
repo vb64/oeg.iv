@@ -171,6 +171,18 @@ class File:
         """Reckord total length."""
         return int(self.data[-1].dist_od)
 
+    def make_distances_unique(self, dist_shift_mm=1):
+        """Make distances of rows unique, by increasing values of duplicate distances."""
+        dist_list = []
+        shift_count = 0
+        for row in self.data:
+            while row.dist_od in dist_list:
+                row.dist_od += dist_shift_mm
+                shift_count += 1
+            dist_list.append(row.dist_od)
+
+        return shift_count
+
     def to_file(self, file_path):
         """Save csv to file."""
         output = self.open_file(file_path, 'w')
