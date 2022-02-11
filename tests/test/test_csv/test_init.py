@@ -280,3 +280,25 @@ class TestInit(TestCsv):
         ]
         csv_file.dist_modify(table)
         assert csv_file.data[0].dist_od == 150
+
+    @staticmethod
+    def test_make_distances_unique():
+        """Check make_distances_unique function."""
+        from oeg_iv.csvfile import File
+        from oeg_iv.csvfile.row import Row
+
+        csv_file = File()
+        dist = 10
+        dist_shift_mm = 2
+
+        csv_file.data = [
+          Row.as_weld(dist, ''),
+          Row.as_weld(dist + 1000, ''),
+          Row.as_thick(dist, 100),
+        ]
+        assert csv_file.data[0].dist_od == dist
+        assert csv_file.data[-1].dist_od == dist
+
+        assert csv_file.make_distances_unique(dist_shift_mm=dist_shift_mm) == 1
+        assert csv_file.data[0].dist_od == dist
+        assert csv_file.data[-1].dist_od == dist + dist_shift_mm
