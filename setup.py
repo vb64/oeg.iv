@@ -9,7 +9,7 @@ Python package for communication with InspectionViewer app
 
 setuptools.setup(
   name='oeg_iv',
-  version='1.9',
+  version='1.9.1',
   author='Vitaly Bogomolov',
   author_email='mail@vitaly-bogomolov.ru',
   description='Python package for communication with InspectionViewer app',
@@ -17,7 +17,8 @@ setuptools.setup(
   long_description_content_type="text/markdown",
   url='https://github.com/vb64/oeg.iv',
   packages=['oeg_iv', 'oeg_iv.csvfile'],
-  download_url='https://github.com/vb64/oeg.iv/archive/v1.9.tar.gz',
+  install_requires=['py23==1.1'],
+  download_url='https://github.com/vb64/oeg.iv/archive/v1.9.1.tar.gz',
   keywords=['python', 'InspectionViewer', 'csv'],
   classifiers=[
     "Programming Language :: Python",
