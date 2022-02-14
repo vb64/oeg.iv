@@ -310,5 +310,9 @@ class File:
     def get_tubes(self, warns):
         """Return ready iterator for tubes in csv data."""
         tubes = self._create_tubes_iterator(warns)
-        gen_next(tubes)
+        try:
+            gen_next(tubes)
+        except StopIteration:
+            return []
+
         return tubes

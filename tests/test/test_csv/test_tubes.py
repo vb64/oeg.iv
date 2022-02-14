@@ -18,6 +18,15 @@ class TestTubes(TestCsv):
 
         self.tube = Tube(Row.as_weld(10), Stream(), '1')
 
+    @staticmethod
+    def test_no_welds():
+        """No welds in csv file."""
+        from oeg_iv.csvfile import File
+
+        ivc = File()
+        warns = []
+        assert not ivc.get_tubes(warns)
+
     def test_add_object(self):
         """Add object."""
         from oeg_iv import Error
