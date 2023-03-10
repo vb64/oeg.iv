@@ -1,0 +1,2 @@
+recursive-include oeg_iv *
+global-exclude *.py[cod]

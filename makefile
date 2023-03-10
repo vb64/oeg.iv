@@ -48,14 +48,14 @@ pep257:
 	$(PYTHON) -m pep257 $(SOURCE)
 	$(PYTHON) -m pep257 --match='.*\.py' $(TESTS)/test
 
-dist:
-	$(PYTHON) setup.py sdist bdist_wheel
+package:
+	$(PYTHON) -m build -n
 
-upload_piptest: tests dist
-	$(PYTHON) -m twine upload --repository-url https://test.pypi.org/legacy/ dist/*
+pypitest: package
+	$(PYTHON) -m twine upload --config-file .pypirc --repository testpypi dist/*
 
-upload_pip: tests dist
-	$(PYTHON) -m twine upload dist/*
+pypi: package
+	$(PYTHON) -m twine upload --config-file .pypirc dist/*
 
 setup2: setup_python2 setup_pip2
 
