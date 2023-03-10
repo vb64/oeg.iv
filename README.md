@@ -159,16 +159,16 @@ git clone git@github.com:vb64/oeg.iv.git
 cd oeg.iv
 ```
 
-With Python
-
-```bash
-make setup PYTHON_BIN=/path/to/python27/executable
-make tests
-```
-
 With Python3
 
 ```bash
-make setup3 PYTHON_BIN=/path/to/python37/executable
-make tests3
+make setup PYTHON_BIN=/path/to/python3/executable
+make tests
+```
+
+With Python2
+
+```bash
+make setup2 PYTHON_BIN=/path/to/python27/executable
+make tests2
 ```
