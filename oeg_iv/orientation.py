@@ -13,10 +13,10 @@ class Orientation:
 
     def __init__(self, hours, minutes):
         """Construct object from integer hours and minutes."""
-        if not(0 <= hours <= 12):
+        if not (0 <= hours <= 12):
             raise Error("Wrong hours: {}. Must be 0-12".format(hours))
 
-        if not(0 <= minutes <= 59):
+        if not (0 <= minutes <= 59):
             raise Error("Wrong minutes: {}. Must be 0-59".format(minutes))
 
         self.hours = hours

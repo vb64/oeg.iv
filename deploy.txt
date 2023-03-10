@@ -1,1 +1,5 @@
+setuptools>=42
+wheel
+build
 twine
+Babel

@@ -1,6 +1,7 @@
 # Python package for communication with InspectionViewer app
-[![GitHub Workflow Status](https://img.shields.io/github/workflow/status/vb64/oeg.iv/oeg.iv%20pep257?label=Pep257&style=plastic)](https://github.com/vb64/oeg.iv/actions?query=workflow%3A%22oeg.iv+pep257%22)
-[![GitHub Workflow Status](https://img.shields.io/github/workflow/status/vb64/oeg.iv/oeg.iv%20tests?label=Python%202.7%203.6-3.10&style=plastic)](https://github.com/vb64/oeg.iv/actions?query=workflow%3A%22oeg.iv+tests%22)
+[![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/vb64/oeg.iv/pep257.yml?label=Pep257&style=plastic&branch=main)](https://github.com/vb64/oeg.iv/actions?query=workflow%3Apep257)
+[![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/vb64/oeg.iv/py2.yml?label=Python%202.7&style=plastic&branch=main)](https://github.com/vb64/oeg.iv/actions?query=workflow%3Apy2)
+[![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/vb64/oeg.iv/py3.yml?label=Python%203.7-3.10&style=plastic&branch=main)](https://github.com/vb64/oeg.iv/actions?query=workflow%3Apy3)
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/aa5f850432ca45408ab72c002f0689ea)](https://www.codacy.com/gh/vb64/oeg.iv/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=vb64/oeg.iv&amp;utm_campaign=Badge_Grade)
 [![Codacy Badge](https://app.codacy.com/project/badge/Coverage/aa5f850432ca45408ab72c002f0689ea)](https://www.codacy.com/gh/vb64/oeg.iv/dashboard?utm_source=github.com&utm_medium=referral&utm_content=vb64/oeg.iv&utm_campaign=Badge_Coverage)
 
@@ -159,16 +160,16 @@ git clone git@github.com:vb64/oeg.iv.git
 cd oeg.iv
 ```
 
-With Python
-
-```bash
-make setup PYTHON_BIN=/path/to/python27/executable
-make tests
-```
-
 With Python3
 
 ```bash
-make setup3 PYTHON_BIN=/path/to/python37/executable
-make tests3
+make setup PYTHON_BIN=/path/to/python3/executable
+make tests
+```
+
+With Python2
+
+```bash
+make setup2 PYTHON_BIN=/path/to/python27/executable
+make tests2
 ```
