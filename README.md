@@ -26,7 +26,7 @@ Construct new csv file from scratch.
 ```python
 import os
 
-from oeg_iv import TypeHorWeld, TypeDefekt
+from oeg_iv import TypeHorWeld, TypeDefekt, DefektSide
 from oeg_iv.orientation import Orientation
 from oeg_iv.csvfile import File
 from oeg_iv.csvfile.row import Row
@@ -47,12 +47,16 @@ csv_file.data = [
 # add defect to tube at distance 5.0 m from left tube weld
 # length = 20 mm, width = 10 mm, depth = 30% tube wall thickness
 # orientation from 4 hours 00 minutes to 5 hours 00 minutes
+# maximum depth point at distance 5.01 m from left tube weld,
+# orientation 4 hours 30 minutes
 # with comment 'metal loss'
 csv_file.data.append(Row.as_defekt(
   6000,
   TypeDefekt.CORROZ,
+  DefektSide.OUTSIDE
   '20', '10', '30',
   Orientation(4, 0), Orientation(5, 0),
+  6010, Orientation(4, 30),
   'metal loss'
 ))
 
