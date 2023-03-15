@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """Tests row.py file.
 
 make test T=test_csv/test_row.py
@@ -155,3 +156,18 @@ class TestRow(TestCsv):
         row.reverse(10)
         assert row.dist_od == '2'
         assert row.object_code == str(TypeMarker.TURN_END)
+
+    @staticmethod
+    def test_reverse_comment():
+        """Comment change on row reverse."""
+        from oeg_iv import ObjectClass
+        from oeg_iv.csvfile.row import Row
+        from py23 import win1251
+
+        row = Row()
+        row.dist_od = '2'
+        row.type_object = str(ObjectClass.MARKER)
+        row.comments = win1251('влево')
+
+        row.reverse(10)
+        assert row.comments == win1251('вправо')

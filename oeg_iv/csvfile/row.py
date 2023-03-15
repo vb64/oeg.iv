@@ -388,5 +388,5 @@ class Row:  # pylint: disable=too-many-instance-attributes
         # comments
         for key, val in REVERSE_COMMENTS.items():
             if is_contains(self.comments, key):
-                replace1251(self.comments, key, val)
+                self.comments = replace1251(self.comments, key, val)
                 break
