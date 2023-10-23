@@ -1,4 +1,11 @@
 # Python package for communication with InspectionViewer app
+
+Attention!
+
+This repository is frozen and exists for backward compatibility.
+
+You can use a [new version](https://github.com/vb64/pipeline.csv) of this library that is being developed and maintained.
+
 [![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/vb64/oeg.iv/pep257.yml?label=Pep257&style=plastic&branch=main)](https://github.com/vb64/oeg.iv/actions?query=workflow%3Apep257)
 [![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/vb64/oeg.iv/py2.yml?label=Python%202.7&style=plastic&branch=main)](https://github.com/vb64/oeg.iv/actions?query=workflow%3Apy2)
 [![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/vb64/oeg.iv/py3.yml?label=Python%203.7-3.10&style=plastic&branch=main)](https://github.com/vb64/oeg.iv/actions?query=workflow%3Apy3)
